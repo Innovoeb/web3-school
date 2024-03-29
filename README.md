@@ -1,13 +1,28 @@
-# Sample Hardhat Project
+# Innovoeb's Solidity School
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
+This project goes over the fundamentals of the Solidity programming language; used to create smart contracts on Ethereum Virtual Machine (EVM) blockchain networks and the Hardhat.js framwork; used to build, test, and deploy decentralized applications (dApps)
 
-Try running some of the following tasks:
+Common Hardhat Shell Commands
 
-```shell
-npx hardhat help
+**Update Hardhat to its Latest Version**
+
+`npm update hardhat`
+
+**Bring up the Hardhat help menu**
+
+`npx hardhat help`
+
+**Initiate a local blockchain network**
+
+`npx hardhat node`
+
+**Compile all smart contract within the /contracts directory**
+
+`npx hardhat compile`
+
+TODO:
+```
 npx hardhat test
 REPORT_GAS=true npx hardhat test
-npx hardhat node
 npx hardhat ignition deploy ./ignition/modules/Lock.js
 ```
