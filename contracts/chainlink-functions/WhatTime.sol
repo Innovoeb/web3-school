@@ -15,7 +15,7 @@ contract WhatTime is FunctionsClient, ConfirmedOwner {
     bytes public s_lastResponse;
     bytes public s_lastError;
     // State variable to store the desired returned utc time of Las Vegas
-    string public currentTime;
+    string public timezone;
     // Router address - Hardcoded for Mumbai
     // Check to get the router address for your supported network https://docs.chain.link/chainlink-functions/supported-networks
     address router = 0x6E2dc0F9DB014aE19888F539E59285D2Ea04244C;
@@ -79,7 +79,7 @@ contract WhatTime is FunctionsClient, ConfirmedOwner {
         }
         // Update the contract's state variables with the response and any errors
         s_lastResponse = response;
-        currentTime = string(response);
+        timezone = string(response);
         s_lastError = err;
 
         // Emit an event to log the response

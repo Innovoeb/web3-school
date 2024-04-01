@@ -1,3 +1,6 @@
+<img src="pics/solidity.jpg" alt="Image description" width="150" height="100">
+<img src="pics/hardhat.png" alt="hardhat" width="150" height="100">
+
 # Innovoeb's Web3 School
 
 This project goes over the fundamentals of the Solidity programming language; used to create smart contracts on Ethereum Virtual Machine (EVM) blockchain networks and the Hardhat.js framwork; used to build, test, and deploy decentralized applications (dApps)
