@@ -1,5 +1,5 @@
-<img src="pics/solidity.jpg" alt="Image description" width="150" height="100">
-<img src="pics/hardhat.png" alt="hardhat" width="150" height="100">
+<img src="pics/solidity.jpg" alt="Image description" width="150" height="100"><img src="pics/hardhat.png" alt="hardhat" width="150" height="100">
+
 
 # Innovoeb's Web3 School
 

@@ -1,5 +1,4 @@
 const hre = require("hardhat")
-//const functions = hre.chainlink.functions
 // REPLACE this with your Functions consumer address
 const consumerAddress = "0x7178f4a13ff03b2bf76ae59098eb75a4fdc56e42"
 
