@@ -1,4 +1,4 @@
-<img src="pics/solidity.png" alt="Image description" width="150" height="100"><img src="pics/hardhat.png" alt="hardhat" width="150" height="100">
+<img src="pics/solidity.png" width="150" height="100"><img src="pics/hardhat.png" width="150" height="100"><img src="pics/chainlink.png" width="150" height="100">
 
 
 # Innovoeb's Web3 School

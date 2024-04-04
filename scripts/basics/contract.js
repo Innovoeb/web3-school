@@ -1,28 +1,22 @@
 const hre = require("hardhat");
 
-let connect = async (contractName, contractAddress) => {
-    // Get the ContractFactory of your smart contract
-    const contractFactory = await hre.ethers.getContractFactory(contractName)
 
-    // Connect to the deployed contract
-    const contract = await contractFactory.attach(contractAddress);
-
-    return contract
-}
-
-let dataTypes = async () => {
-    try {
-        const contract = await connect("HelloSolidity", "0x5FbDB2315678afecb367f032d93F642f64180aa3")
-        // invoke the dataTypes() method
-        await contract.dataTypes();
-        console.log("Check localhost console!")
-    } catch (error) {
-        console.error(error)
-        process.exit(1)
+const ContractFactory = {
+    address: '0x5FbDB2315678afecb367f032d93F642f64180aa3', // hardcoded for hardhat local network
+    name: 'DataTypes', // START HERE!
+    connect: async (contractName, contractAddress) => {
+        // Get the ContractFactory of your smart contract
+        const contractFactory = await hre.ethers.getContractFactory(contractName)
+        // Connect to the deployed contract
+        const contract = await contractFactory.attach(contractAddress);
+        return contract
     }
 }
-//dataTypes()
+module.exports = ContractFactory
 
+
+
+/*
 let add = async () => {
     try {
         const contract = await connect("Math", "0x5FbDB2315678afecb367f032d93F642f64180aa3")
@@ -59,7 +53,6 @@ let subtract = async (x, y) => {
     }
 }
 
-
-
 subtract(100, 50)
+*/
 
