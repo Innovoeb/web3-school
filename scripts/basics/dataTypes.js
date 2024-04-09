@@ -1,8 +1,7 @@
-const ContractFactory = require('./contract.js')
+const ContractFactory = require('./contractFactory.js')
 
 
-
-let dataTypes = async () => {
+const dataTypes = async () => {
     try {
         const contract = await ContractFactory.connect(ContractFactory.name, ContractFactory.address)
         // invoke the dataTypes() method

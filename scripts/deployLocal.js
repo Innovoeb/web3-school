@@ -4,7 +4,7 @@ const fs = require('fs');
 ////////// DECLARATIONS //////////
 
 // START HERE!
-contractName = 'DataTypes' 
+contractName = '' 
 
 const consoleDivider = () => {
     console.log('--------------------------------------------')
