@@ -1,8 +1,9 @@
-const { task } = require("hardhat/config");
-require("@nomicfoundation/hardhat-toolbox");
-require("@chainlink/hardhat-chainlink");
-const INFURA_API_KEY = vars.get("INFURA_API_KEY");
-const DEV_WALLET = vars.get("DEV_WALLET");
+require("@nomicfoundation/hardhat-toolbox")
+require("@chainlink/hardhat-chainlink")
+const INFURA_API_KEY = vars.get("INFURA_API_KEY")
+const DEV_WALLET = vars.get("DEV_WALLET")
+const {getVRFSubscription} = require('./scripts/chainlink-vrf/getVRFSubscription.js')
+const {getFunctionsSubscription} = require('./scripts/chainlink-functions/getFunctionsSubscription.js')
 
 
 /** @type import('hardhat/config').HardhatUserConfig */
@@ -19,28 +20,27 @@ module.exports = {
       accounts: [DEV_WALLET],
       gas: 6000000
     }
-  }
+  },
+  tasks: {
+    testnetVRFSub: {
+      action: async (taskArgs, hre) => {
+        await getVRFSubscription() 
+      },
+    },
+    testnetFunctionsSub: {
+      action: async (taskArgs, hre) => {
+        await getFunctionsSubscription()
+      },
+    },
+  },
 };
 
-////////// TASKS //////////
 
-const functionsRouterAddress = '0x6E2dc0F9DB014aE19888F539E59285D2Ea04244C';  
-const subscriptionId = 1418;
 
-task("getFunctionsSubscription", "Get the details of a Chainlink Functions subscription")
-.setAction(async (taskArgs, hre) => {
-  const result = await hre.chainlink.functions.getSubscriptionDetails(functionsRouterAddress, subscriptionId)
-  console.log(result)
-})
 
-const vrfCoordinator = '0x8103B0A8A00be2DDC778e6e7eaa21791Cd364625' // hardcoded sepolia VRF coordinator address
-const vrfSubscriptionId = 10730;
 
-task('getVRFSubscription', 'Get the details of a Chainlink VRF subscription')
-.setAction(async (taskArgs, hre) => {
-  const result = await hre.chainlink.vrf.getSubscriptionDetails(vrfCoordinator, vrfSubscriptionId)
-  console.log(result)
-})
+
+
 
 
 
