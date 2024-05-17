@@ -4,7 +4,7 @@ const fs = require('fs');
 ////////// DECLARATIONS //////////
 
 // START HERE!
-contractName = 'Events' 
+contractName = 'DataTypes' 
 
 const consoleDivider = () => {
     console.log('--------------------------------------------')
@@ -12,7 +12,7 @@ const consoleDivider = () => {
 
 // from root directory of SoliditySchool project
 const artifactsExist = () => {
-    if (fs.existsSync('./ignition/deployments')) {
+    if (fs.existsSync('../ignition/deployments')) {
         return true
     } else {
         return false
@@ -23,7 +23,7 @@ let deploymentArtifacts = () => {
     setTimeout(() => {
         // (1)
         if (artifactsExist()) {
-            exec('rm -rf ignition/deployments', (error, stdout, stderr) => {
+            exec('rm -rf ../ignition/deployments', (error, stdout, stderr) => {
                 if (error) {
                   console.error('Error executing command:', error)
                   return
@@ -44,7 +44,7 @@ let deploymentArtifacts = () => {
 
 let deployment = () => {
     setTimeout(() => {
-        exec(`npx hardhat ignition deploy ./ignition/modules/${contractName}.js --network localhost`, (error, stdout, stderr) => {
+        exec(`npx hardhat ignition deploy ../ignition/modules/${contractName}.js --network localhost`, (error, stdout, stderr) => {
             if (error) {
                 console.error('Error executing deployment:', error)
                 return

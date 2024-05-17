@@ -25,7 +25,7 @@ contract DataTypes
         console.logBytes32(Bytes32);
     }
 
-    function consoleDivider() private pure {
+    function consoleDivider() private view {
         console.log("----------");
     }
 
