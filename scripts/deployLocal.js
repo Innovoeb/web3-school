@@ -4,7 +4,7 @@ const fs = require('fs');
 ////////// DECLARATIONS //////////
 
 // START HERE!
-contractName = '' 
+contractName = 'Events' 
 
 const consoleDivider = () => {
     console.log('--------------------------------------------')

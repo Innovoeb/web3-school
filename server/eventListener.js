@@ -8,8 +8,6 @@ const localContractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
 const sepoliaContractAddress = "0x08810ED231bca4241fd757291F7Ecf2f02C0c8bF"
 
 
-
-
 const getABI = async () => {
     const artifact = await hre.artifacts.readArtifact("Events")
     //console.log(artifact.abi)
@@ -45,4 +43,15 @@ const listen = async () => {
     
 }
 listen()
+
+
+
+
+
+
+
+
+
+
+
 
