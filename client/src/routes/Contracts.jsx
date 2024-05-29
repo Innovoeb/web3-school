@@ -66,12 +66,12 @@ const Contracts = () => {
         if (!isConnected) throw Error('User disconnected')
 
         const provider = new ethers.providers.Web3Provider(walletProvider)
-        const signer = provider.getSigner()
         
 
         // contract obj
         const contract = new ethers.Contract(Simple.simplepayableAddress, Simple.simplepayableABI, provider)
-        const balance = await contract.balance()  
+        //const balance = await contract.balance()  
+        const balance = await provider.getBalance(Simple.simplepayableAddress)
         console.log(`Balance: ${ethers.utils.formatEther(balance)}`) 
     }
 
