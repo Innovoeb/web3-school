@@ -24,6 +24,13 @@ export const Networks = {
         currency: 'ETH',
         explorerUrl: 'https://sepolia.arbiscan.io/',
         rpcUrl: `https://arbitrum-sepolia.infura.io/v3/${INFURA_API_KEY}`
+    },
+    local_network: {
+        chainId: 31337,
+        name: 'Local Network',
+        currency: 'ETH',
+        explorerUrl: '',
+        rpcUrl: 'http://127.0.0.1:8545'
     }
 
 }

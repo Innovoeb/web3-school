@@ -27,7 +27,7 @@ const ethersConfig = defaultConfig({
 // (5) Create a Web3Modal instance
 createWeb3Modal({
     ethersConfig,
-    chains: [Networks.sepolia, Networks.polygon_amoy, Networks.arbitrum_sepolia],
+    chains: [Networks.sepolia, Networks.polygon_amoy, Networks.arbitrum_sepolia, Networks.local_network],
     projectId
 })
   
