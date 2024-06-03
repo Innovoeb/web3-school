@@ -10,5 +10,8 @@
     "@chainlink/hardhat-chainlink": "^0.0.4",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "chalk": "^4.1.2"
+  },
+  "scripts": {
+    "start": "concurrently  \"cd client && npm run dev\" \"cd server && npx json-server --watch ./data/db.json --port 3001\" \"cd server && node index.js \" \"cd server && node eventListener.js\" --names React,JSON-Server,API,EventListener --prefix-colors red,#FFA500,yellow,green,blue,magenta"
   }
 }

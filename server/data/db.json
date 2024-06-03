@@ -3,44 +3,33 @@
   "testnet-deployments": [],
   "local": [
     {
-      "id": "98de",
-      "type": "event",
+      "id": "bb6d",
+      "type": "contract-deployment",
       "contractName": "Events",
       "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-      "network": "Local",
-      "user": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-      "depositAmount": "0.02 ETH",
-      "newBalance": "0.4 ETH",
-      "time": "2024-06-03T20:08:56.572Z"
+      "tx": "0x05a8d9499ec3bef1e9c524fe2823cfa2744a33c7791812599784b8704c69dc3a",
+      "network": "local",
+      "time": "2024-06-03T21:35:18.405Z"
     },
     {
-      "id": "9d4c",
+      "id": "2c0a",
+      "type": "contract-deployment",
+      "contractName": "Events",
+      "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "tx": "0x05a8d9499ec3bef1e9c524fe2823cfa2744a33c7791812599784b8704c69dc3a",
+      "network": "local",
+      "time": "2024-06-03T21:39:03.695Z"
+    },
+    {
+      "id": "ede5",
       "type": "event",
       "contractName": "Events",
       "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-      "network": "Local",
+      "network": "local",
       "user": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
       "depositAmount": "0.1 ETH",
-      "newBalance": "0.5 ETH",
-      "time": "2024-06-03T20:10:52.602Z"
-    },
-    {
-      "id": "22a9",
-      "type": "contract-deployment",
-      "contractName": "SimpleStorage",
-      "contractAddress": "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1",
-      "tx": "0x877ca5d7d96216cebc51a184b7839579bc00e12374f999906f67037210676f4f",
-      "network": "local",
-      "time": "2024-06-03T20:42:58.373Z"
-    },
-    {
-      "id": "8abe",
-      "type": "contract-deployment",
-      "contractName": "SimplePayable",
-      "contractAddress": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
-      "tx": "0x8bba1db1b19959e75839dfb93586cfe558e87b19e8bdcfb93ef0e250eca879e3",
-      "network": "local",
-      "time": "2024-06-03T20:49:12.289Z"
+      "newBalance": "0.1 ETH",
+      "time": "2024-06-03T21:39:32.186Z"
     }
   ]
 }
