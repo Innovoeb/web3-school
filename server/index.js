@@ -27,25 +27,25 @@ app.post("/deploy", async (req, res) => {
             res.status(200).json({
                 "message": "Contract Deployment Successful!",
                 "contractAddress": contractAddress,
-                "transactionHash": transactionHash
+                "tx": transactionHash
             })
         } else if (req.body.network === "sepolia") {
             res.status(200).json({
                 "message": "Contract Deployment Successful!",
                 "contractAddress": `https://sepolia.etherscan.io/address/${contractAddress}`,
-                "transactionHash": `https://sepolia.etherscan.io/tx/${transactionHash}`
+                "tx": `https://sepolia.etherscan.io/tx/${transactionHash}`
             })
         } else if (req.body.network === "polygon_amoy") {
             res.status(200).json({
                 "message": "Contract Deployment Successful!",
                 "contractAddress": `https://amoy.polygonscan.com/address/${contractAddress}`,
-                "transactionHash": `https://amoy.polygonscan.com/tx/${transactionHash}`
+                "tx": `https://amoy.polygonscan.com/tx/${transactionHash}`
             })
         } else if (req.body.network === "arbitrum_sepolia") {
             res.status(200).json({
                 "message": "Contract Deployment Successful!",
                 "contractAddress": `https://sepolia.arbiscan.io/address/${contractAddress}`,
-                "transactionHash": `https://sepolia.arbiscan.io/tx/${transactionHash}`
+                "tx": `https://sepolia.arbiscan.io/tx/${transactionHash}`
             })
         } 
     } catch (error) {
