@@ -1,4 +1,4 @@
-// import express from "express"
+
 const express = require("express")
 const hre = require("hardhat")
 const { exec } = require('child_process')
@@ -39,24 +39,7 @@ app.get("/deposit", (req, res) => {
     })
 })
 
-app.post("/deploy", (req, res) => {
-    //console.dir(req.headers)
-    let error = ""
-    let stdout = ""
-    exec(`npx hardhat run ../scripts/deployLocal.js --network localhost`, (error, stdout, stderr) => {
-        if (error) {
-            console.error('Error executing deployment:', error)
-            error = error
-            return
-        } else {
-            res.status(200).json({
-                "message": "Contract Deployed!",
-                "stdout": `${stdout}`
-            })
-            stdout = stdout
-        }
-    })
-})
+
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)

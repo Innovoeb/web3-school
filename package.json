@@ -1,12 +1,12 @@
 {
   "name": "hardhat-project",
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "hardhat": "^2.22.1"
   },
   "dependencies": {
     "@chainlink/contracts": "0.8.0",
     "@chainlink/hardhat-chainlink": "^0.0.4",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "chalk": "^4.1.2"
   }
 }

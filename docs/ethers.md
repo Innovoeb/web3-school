@@ -1,6 +1,6 @@
 ## Provider
 
-Prover: read permissions for an EVM network
+Provider: read permissions for an EVM network
 - https://docs.ethers.org/v5/api/providers/provider/#Provider
 
 provider.getBalance()

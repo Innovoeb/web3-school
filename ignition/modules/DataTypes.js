@@ -1,5 +1,6 @@
 const { buildModule } = require("@nomicfoundation/hardhat-ignition/modules");
 
+
 // 1stParam = module ID, 2ndParam = module definition, m param within callback = ModuleBuilder object
 module.exports = buildModule("DataTypesModule", (m) => {
   // dataTypes = Future object; result of an execution step that Hardhat Ignition 
