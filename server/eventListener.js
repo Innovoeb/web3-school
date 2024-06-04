@@ -11,13 +11,14 @@ const localEventsAddress = DB.getContract("Events", "local")
 
 
 // listen for the Deposit events on the Events contract
-
 module.exports.EventListener = {
     listen: async () => {
         const ABI = await getABI()
         const provider = new hre.ethers.providers.JsonRpcProvider()
         const localContract = new hre.ethers.Contract(await localEventsAddress, ABI, provider)
         //const sepoliaContract = new hre.ethers.Contract(sepoliaContractAddress, ABI, sepoliaProvider)
+
+        // returns the block number (or height) of the most recently mined block
         const startBlockNumber = await provider.getBlockNumber()
     
         try {

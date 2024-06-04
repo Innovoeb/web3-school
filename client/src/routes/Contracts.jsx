@@ -2,7 +2,7 @@ import '../styles/Contracts.css'
 import { useState } from 'react'
 import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers5/react'
 import { ethers } from "ethers"
-import { Simple } from '../abis/SimpleABIs'
+import { Simple } from '../abis/SimpleABIs.js'
 
 
 

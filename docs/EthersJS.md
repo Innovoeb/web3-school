@@ -3,13 +3,31 @@
 Provider: read permissions for an EVM network
 - https://docs.ethers.org/v5/api/providers/provider/#Provider
 
-provider.getBalance()
-- get eth balance of a wallet and/or contract
-- https://docs.ethers.org/v5/api/providers/provider/#Provider-getBalance
+### Get a Contract/Wallet Balance
+
+**Reference: /client/src/routes/Contracts.jsx**
 
 ```
-const balance = await provider.getBalance(contractAddress)
+const provider = new ethers.providers.Web3Provider(provider)
+
+const balance = await provider.getBalance(address)
 ```
+- https://docs.ethers.org/v5/api/providers/provider/#Provider-getBalance
+
+### Get a Network's Latest Block Number
+
+**Reference: /server/eventListener.js**
+
+```
+const provider = new hre.ethers.providers.JsonRpcProvider()
+
+// returns the block number (or height) of the most recently mined block
+const startBlockNumber = await provider.getBlockNumber()
+```
+- https://docs.ethers.org/v5/api/providers/provider/#Provider-getBlockNumber
+- https://ethereum.stackexchange.com/questions/91388/ethers-js-filters-events-only-new-events
+    - only filter for new contract events
+
 
 
 
