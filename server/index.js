@@ -2,6 +2,8 @@ const express = require("express")
 const port = 3000
 const app = express()
 const { deployContract } = require("./utils/deployContract")
+const { DB } = require("./data/db")
+const { EventListener } = require("./eventListener")
 
 
 app.use(express.json())
@@ -10,7 +12,7 @@ app.use(require('cors')())
 
 
 
-app.post("/deploy", async (req, res) => {
+app.post("/deployments", async (req, res) => {
     let loggedError
     let loggedOutput
     let response
@@ -19,35 +21,40 @@ app.post("/deploy", async (req, res) => {
 
     
     try {
-        response = await deployContract(req.body.contractName, req.body.network)
-        contractAddress = response.contractAddress
-        transactionHash = response.transactionHash
+        if (await DB.contractExists(req.body.contractName, req.body.network) ) {
+            res.status(400).json({
+                "message": `Contract Already Exists on ${req.body.network} Network!`
+            })
+        } else {
+            response = await deployContract(req.body.contractName, req.body.network)
+            contractAddress = response.contractAddress
+            transactionHash = response.transactionHash
         
-        if (req.body.network === "local") {
-            res.status(200).json({
-                "message": "Contract Deployment Successful!",
-                "contractAddress": contractAddress,
-                "tx": transactionHash
-            })
-        } else if (req.body.network === "sepolia") {
-            res.status(200).json({
-                "message": "Contract Deployment Successful!",
-                "contractAddress": `https://sepolia.etherscan.io/address/${contractAddress}`,
-                "tx": `https://sepolia.etherscan.io/tx/${transactionHash}`
-            })
-        } else if (req.body.network === "polygon_amoy") {
-            res.status(200).json({
-                "message": "Contract Deployment Successful!",
-                "contractAddress": `https://amoy.polygonscan.com/address/${contractAddress}`,
-                "tx": `https://amoy.polygonscan.com/tx/${transactionHash}`
-            })
-        } else if (req.body.network === "arbitrum_sepolia") {
-            res.status(200).json({
-                "message": "Contract Deployment Successful!",
-                "contractAddress": `https://sepolia.arbiscan.io/address/${contractAddress}`,
-                "tx": `https://sepolia.arbiscan.io/tx/${transactionHash}`
-            })
-        } 
+            if (req.body.network === "local") {
+                res.status(200).json({
+                    "message": "Contract Deployment Successful!",
+                    "contractAddress": contractAddress,
+                    "tx": transactionHash
+                })
+            } else if (req.body.network === "sepolia") {
+                res.status(200).json({
+                    "message": "Contract Deployment Successful!",
+                    "contractAddress": `https://sepolia.etherscan.io/address/${contractAddress}`,
+                    "tx": `https://sepolia.etherscan.io/tx/${transactionHash}`
+                })
+            } else if (req.body.network === "polygon_amoy") {
+                res.status(200).json({
+                    "message": "Contract Deployment Successful!",
+                    "contractAddress": `https://amoy.polygonscan.com/address/${contractAddress}`,
+                    "tx": `https://amoy.polygonscan.com/tx/${transactionHash}`
+                })
+            } else if (req.body.network === "arbitrum_sepolia") {
+                res.status(200).json({
+                    "message": "Contract Deployment Successful!",
+                    "contractAddress": `https://sepolia.arbiscan.io/address/${contractAddress}`,
+                    "tx": `https://sepolia.arbiscan.io/tx/${transactionHash}`
+                })
+            }} 
     } catch (error) {
         console.log(`Error: ${error}`)
         loggedError = error
@@ -64,5 +71,6 @@ app.post("/deploy", async (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
     console.log(`worker pid=${process.pid}`)
+    EventListener.listen()
 })
 
