@@ -1,5 +1,7 @@
 const hre = require("hardhat")
+const { vars } = require("hardhat/config")
 const { DB } = require("./data/db.js")
+const { Provider } = require("./utils/provider.js") 
 const localEventsAddress = DB.getContract("Events", "local")
 
 
@@ -53,6 +55,26 @@ module.exports.EventListener = {
         //     console.log(`Time: ${new Date().toISOString()}`)
         //     console.log(`--------------------------`)
         // }) 
+    },
+    listenNativeTransactions: async () => {
+        try {
+            const filter = {
+                topics: [
+                    // from, to, amount
+                    hre.ethers.utils.id("Transfer(address,address,uint256)"),
+                    [
+                        hre.ethers.utils.hexZeroPad(`${vars.get("DEV_WALLET")}`, 32)
+                    ]
+                ]
+            }
+
+            Provider.sepolia.on(filter, async (data) => {
+                console.log(await data)
+            
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 
@@ -60,6 +82,7 @@ const getABI = async () => {
     const artifact = await hre.artifacts.readArtifact("Events")
     return artifact.abi
 }
+
 
 
 

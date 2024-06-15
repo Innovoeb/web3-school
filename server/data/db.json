@@ -1,75 +1,7 @@
 {
-  "events": [],
+  "testnet-events": [],
   "testnet-deployments": [],
   "local": [
-    {
-      "id": "991c",
-      "type": "contract-deployment",
-      "contractName": "Events",
-      "contractAddress": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-      "tx": "0x9e9ce23be142fe4581730b9e9092c1009d0043608a3a25db4a8742f397b82e98",
-      "network": "local",
-      "time": "2024-06-03T23:07:24.563Z"
-    },
-    {
-      "id": "62be",
-      "type": "contract-deployment",
-      "contractName": "DataTypes",
-      "contractAddress": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
-      "tx": "0xeffca7f062db0793479b83210a0adcc17dda8560b56a1f4a8cc5df1e9f1d1d1f",
-      "network": "local",
-      "time": "2024-06-03T23:24:29.412Z"
-    },
-    {
-      "id": "2062",
-      "type": "contract-deployment",
-      "contractName": "SimpleStorage",
-      "contractAddress": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
-      "tx": "0xe53495326fcbd69c13bc9acfde449988d2f596693852c42ea1bcb7644c2ba533",
-      "network": "local",
-      "time": "2024-06-03T23:25:22.171Z"
-    },
-    {
-      "id": "f248",
-      "type": "contract-deployment",
-      "contractName": "SimplePayable",
-      "contractAddress": "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
-      "tx": "0xa9e75310257e0de40146b920154475b562b2dffa00b0b69fc84feac14c458a80",
-      "network": "local",
-      "time": "2024-06-03T23:39:37.465Z"
-    },
-    {
-      "id": "dbbd",
-      "type": "event",
-      "contractName": "Events",
-      "contractAddress": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-      "network": "local",
-      "user": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-      "depositAmount": "0.1 ETH",
-      "newBalance": "0.3 ETH",
-      "time": "2024-06-04T00:17:21.145Z"
-    },
-    {
-      "id": "6ce5",
-      "type": "event",
-      "contractName": "Events",
-      "contractAddress": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-      "network": "local",
-      "user": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-      "depositAmount": "0.2 ETH",
-      "newBalance": "0.5 ETH",
-      "time": "2024-06-04T00:19:41.180Z"
-    },
-    {
-      "id": "7c87",
-      "type": "event",
-      "contractName": "Events",
-      "contractAddress": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-      "network": "local",
-      "user": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-      "depositAmount": "0.5 ETH",
-      "newBalance": "1.0 ETH",
-      "time": "2024-06-04T00:22:29.230Z"
-    }
+    
   ]
 }
