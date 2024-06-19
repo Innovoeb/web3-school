@@ -89,6 +89,26 @@ const contract = await contractFactory.deploy()
 const response = await contract.deployTransaction.wait()
 ```
 
+## Errors
+
+### Overflow
+```
+[
+  {
+    message: "Contract Deployment Failed!",
+    error: {
+      reason: "overflow",
+      code: "NUMERIC_FAULT",
+      fault: "overflow",
+      operation: "BigNumber.from",
+      value: 100000000000000000,
+    },
+  }
+];
+```
+- https://docs.ethers.org/v5/troubleshooting/errors/#help-NUMERIC_FAULT-overflow
+
+
 
 
 
