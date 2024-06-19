@@ -7,6 +7,8 @@ module.exports.deployContract = async (contractName, network, params) => {
     let signer
     let contractFactory
     let response
+
+    
     const artifacts = await hre.artifacts.readArtifact(contractName)
 
 
@@ -38,7 +40,6 @@ module.exports.deployContract = async (contractName, network, params) => {
 }
 
 const deploymentResponse = async (contractFactory, params) => {
-
     if (params.length == 0) {
         const contract = await contractFactory.deploy()
         const response = await contract.deployTransaction.wait()
@@ -51,6 +52,17 @@ const deploymentResponse = async (contractFactory, params) => {
         const contract = await contractFactory.deploy(params[0], params[1])
         const response = await contract.deployTransaction.wait()
         return response
+    } else if (params.length == 3) {
+        // most likely a VRFCoordinatorV2_5Mock deployment
+        if (params[0] === 100000000000000000) {
+            const contract = await contractFactory.deploy(hre.ethers.BigNumber.from("100000000000000000"), params[1], params[2])
+            const response = await contract.deployTransaction.wait()
+            return response
+        } else {
+            const contract = await contractFactory.deploy(params[0], params[1], params[2])
+            const response = await contract.deployTransaction.wait()
+            return response
+        }
     }
 }
 

@@ -3,62 +3,31 @@
   "testnet-deployments": [],
   "local": [
     {
-      "id": "e423",
-      "type": "contract-deployment",
-      "contractName": "Events",
-      "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-      "tx": "0x1a9999b76da1c9506e236651648adcf24aa91fb479636bf4903a1c97989fd9ab",
-      "network": "local",
-      "time": "2024-06-19T17:36:52.349Z"
-    },
-    {
-      "id": "30cc",
-      "type": "event",
-      "contractName": "Events",
-      "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-      "network": "local",
-      "user": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-      "depositAmount": "0.04 ETH",
-      "newBalance": "0.25 ETH",
-      "time": "2024-06-19T18:05:22.619Z"
-    },
-    {
-      "id": "3855",
-      "type": "event",
-      "contractName": "Events",
-      "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-      "network": "local",
-      "user": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-      "depositAmount": "0.25 ETH",
-      "newBalance": "0.5 ETH",
-      "time": "2024-06-19T18:07:14.713Z"
-    },
-    {
-      "id": "5f71",
-      "type": "contract-deployment",
-      "contractName": "DataTypes",
-      "contractAddress": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
-      "tx": "0x26518c87ca4f0d6698323aa348dc6eada3192be2c4011e94a18a9493ca617719",
-      "network": "local",
-      "time": "2024-06-19T18:19:18.725Z"
-    },
-    {
-      "id": "9759",
-      "type": "contract-deployment",
-      "contractName": "Arrays",
-      "contractAddress": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
-      "tx": "0x1567133c487baf2a3ee2b38a072b535847b1cee46e90dec500b10232299605ea",
-      "network": "local",
-      "time": "2024-06-19T18:20:06.600Z"
-    },
-    {
-      "id": "312a",
+      "id": "45ca",
       "type": "contract-deployment",
       "contractName": "Functions",
-      "contractAddress": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
-      "tx": "0x3bea79da6e6424bb85109c60618b7d32d6547dc0942ca1caba75d0de8376d19a",
+      "contractAddress": "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
+      "tx": "0x2510454c290bbda3045028fcb55b55ea3c3455255a1426e0fe82a9d86dcc7cbe",
       "network": "local",
-      "time": "2024-06-19T18:59:32.293Z"
+      "time": "2024-06-19T20:37:33.058Z"
+    },
+    {
+      "id": "79cf",
+      "type": "contract-deployment",
+      "contractName": "DataTypes",
+      "contractAddress": "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
+      "tx": "0xb73febd748d199823333007deb8c9cd5df3fe2355de45e5c798f046002d3e4f1",
+      "network": "local",
+      "time": "2024-06-19T20:38:38.128Z"
+    },
+    {
+      "id": "cbdc",
+      "type": "contract-deployment",
+      "contractName": "VRFCoordinatorV2_5Mock",
+      "contractAddress": "0x9A676e781A523b5d0C0e43731313A708CB607508",
+      "tx": "0xf10b314f08f9734363325ca0c926932953804373110f729425cd91a9ae7fe2d4",
+      "network": "local",
+      "time": "2024-06-19T22:08:43.251Z"
     }
   ]
 }
