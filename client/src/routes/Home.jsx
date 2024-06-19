@@ -2,7 +2,7 @@
 import '../styles/Home.css'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-//import { hre } from 'hardhat'
+
 
 
 

@@ -5,10 +5,6 @@ import { ethers } from "ethers"
 import { Simple } from '../abis/SimpleABIs.js'
 
 
-
-
-
-
 const Contracts = () => {
     const [value, setValue] = useState(0)
     const [ethvalue, setEthValue] = useState('')

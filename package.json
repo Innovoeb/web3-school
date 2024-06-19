@@ -1,5 +1,5 @@
 {
-  "name": "hardhat-project",
+  "name": "innovoebs-web3-school",
   "devDependencies": {
     "concurrently": "^8.2.2",
     "hardhat": "^2.22.1",
