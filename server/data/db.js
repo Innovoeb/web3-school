@@ -19,21 +19,21 @@ module.exports.DB = {
             if (network == "local") {
                 const response = await fetch("http://localhost:3001/local")
                 const data = await response.json()
-                let exists = false
+                let exsists = false
                 
                 data.map((i) => {
                     if (i.contractName == contractName) {
-                        exists = true
+                        exsists = true
                         return
                     }
                 })
-                return exists
+                return exsists
             }
         } catch (error) {
             console.log(error)
         }
     },
-    getContract: async (contractName, network) => {
+    getContractAddress: async (contractName, network) => {
         try {
             if (network == "local") {
                 const response = await fetch("http://localhost:3001/local")

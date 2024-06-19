@@ -1,8 +1,8 @@
 const express = require("express")
 const port = 3000
 const app = express()
-const { deployContract } = require("./utils/deployContract")
-const { DB } = require("./data/db")
+const { deployContract } = require("../utils/deployContract")
+const { DB } = require("../data/db")
 const { EventListener } = require("./eventListener")
 
 
@@ -19,14 +19,13 @@ app.post("/deployments", async (req, res) => {
     let contractAddress
     let transactionHash
 
-    
     try {
         if (await DB.contractExists(req.body.contractName, req.body.network) ) {
             res.status(400).json({
                 "message": `Contract Already Exists on ${req.body.network} Network!`
             })
         } else {
-            response = await deployContract(req.body.contractName, req.body.network)
+            response = await deployContract(req.body.contractName, req.body.network, req.body.params)
             contractAddress = response.contractAddress
             transactionHash = response.transactionHash
         
@@ -71,7 +70,7 @@ app.post("/deployments", async (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
     console.log(`worker pid=${process.pid}`)
-    //EventListener.listen()
-    EventListener.listenNativeTransactions()
+    EventListener.Events()
+    //EventListener.listenNativeTransactions()
 })
 

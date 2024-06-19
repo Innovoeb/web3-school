@@ -2,6 +2,63 @@
   "testnet-events": [],
   "testnet-deployments": [],
   "local": [
-    
+    {
+      "id": "e423",
+      "type": "contract-deployment",
+      "contractName": "Events",
+      "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "tx": "0x1a9999b76da1c9506e236651648adcf24aa91fb479636bf4903a1c97989fd9ab",
+      "network": "local",
+      "time": "2024-06-19T17:36:52.349Z"
+    },
+    {
+      "id": "30cc",
+      "type": "event",
+      "contractName": "Events",
+      "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "network": "local",
+      "user": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "depositAmount": "0.04 ETH",
+      "newBalance": "0.25 ETH",
+      "time": "2024-06-19T18:05:22.619Z"
+    },
+    {
+      "id": "3855",
+      "type": "event",
+      "contractName": "Events",
+      "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "network": "local",
+      "user": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "depositAmount": "0.25 ETH",
+      "newBalance": "0.5 ETH",
+      "time": "2024-06-19T18:07:14.713Z"
+    },
+    {
+      "id": "5f71",
+      "type": "contract-deployment",
+      "contractName": "DataTypes",
+      "contractAddress": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+      "tx": "0x26518c87ca4f0d6698323aa348dc6eada3192be2c4011e94a18a9493ca617719",
+      "network": "local",
+      "time": "2024-06-19T18:19:18.725Z"
+    },
+    {
+      "id": "9759",
+      "type": "contract-deployment",
+      "contractName": "Arrays",
+      "contractAddress": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+      "tx": "0x1567133c487baf2a3ee2b38a072b535847b1cee46e90dec500b10232299605ea",
+      "network": "local",
+      "time": "2024-06-19T18:20:06.600Z"
+    },
+    {
+      "id": "312a",
+      "type": "contract-deployment",
+      "contractName": "Functions",
+      "contractAddress": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+      "tx": "0x3bea79da6e6424bb85109c60618b7d32d6547dc0942ca1caba75d0de8376d19a",
+      "network": "local",
+      "time": "2024-06-19T18:59:32.293Z"
+    }
   ]
 }
