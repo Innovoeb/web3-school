@@ -1,6 +1,6 @@
 const hre = require("hardhat")
 const { vars } = require("hardhat/config")
-const { Provider } = require("./provider.js")
+const { Provider } = require("./providers.js")
 
 
 

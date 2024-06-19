@@ -2,13 +2,15 @@
 import '../styles/Home.css'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-const { obj } = require('../data.js')
+//import { hre } from 'hardhat'
 
 
 
 const Home = () => {
 
-    useEffect(() => obj.greeting(), [])
+    useEffect(() => {
+        console.log(hre)
+    }, [])
 
     return ( 
         <div className="home-content">
