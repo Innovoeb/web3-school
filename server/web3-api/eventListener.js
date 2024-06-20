@@ -15,6 +15,84 @@ const { getABI } = require("../utils/getABI.js")
 
 // listen for the Deposit events on the Events contract
 module.exports.EventListener = {
+    VRF_Mock: {
+        SubscriptionCreated: async () => {
+            try {
+                if (await DB.contractExists("VRFCoordinatorV2_5Mock", "local")) {
+                    let address, abi, provider
+                    address = await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local")
+                    abi = await getABI("VRFCoordinatorV2_5Mock")
+                    provider = Provider.local
+                    const contract = new hre.ethers.Contract(address, abi, provider)
+                    // returns the block number (or height) of the most recently mined block
+                    const startBlockNumber = await provider.getBlockNumber()
+
+                    contract.on("SubscriptionCreated", async (subscriptionID, sender, blockNumber) => {
+                        // only listen for new events
+                        if (blockNumber <= startBlockNumber) {
+                            return
+                        } else {
+                            let SubscriptionCreated = {
+                                type: "event",
+                                contractName: "VRFCoordinatorV2_5Mock",
+                                eventName: "SubscriptionCreated",
+                                contractAddress: address,
+                                network: "local",
+                                subscriptionID: await hre.ethers.BigNumber.from(subscriptionID).toString(),
+                                sender: sender,
+                                time: new Date().toISOString()
+                            }
+                            // POST to db.json here!
+                            DB.postLocal("http://localhost:3001/local", SubscriptionCreated)
+                        }
+                    })
+                }
+
+            } catch (error) {
+                console.log(error)
+            }
+
+        },
+        SubscriptionFunded: async () => {
+            try {
+                if (await DB.contractExists("VRFCoordinatorV2_5Mock", "local")) {
+                    let address, abi, provider
+                    address = await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local")
+                    abi = await getABI("VRFCoordinatorV2_5Mock")
+                    provider = Provider.local
+                    const contract = new hre.ethers.Contract(address, abi, provider)
+                    // returns the block number (or height) of the most recently mined block
+                    const startBlockNumber = await provider.getBlockNumber()
+
+                    contract.on("SubscriptionFunded", async (subId, oldBalance, newBalance, blockNumber) => {
+                        // only listen for new events
+                        if (blockNumber <= startBlockNumber) {
+                            return
+                        } else {
+                            let bigOldBalance = await hre.ethers.BigNumber.from(oldBalance)
+                            let bigNewBalance = await hre.ethers.BigNumber.from(newBalance)
+
+                            let SubscriptionFunded = {
+                                type: "event",
+                                contractName: "VRFCoordinatorV2_5Mock",
+                                eventName: "SubscriptionFunded",
+                                contractAddress: address,
+                                network: "local",
+                                subscriptionID: await hre.ethers.BigNumber.from(subId).toString(),
+                                oldBalance: `${await hre.ethers.utils.formatEther(bigOldBalance)} LINK`,
+                                newBalance: `${await hre.ethers.utils.formatEther(bigNewBalance)} LINK`,
+                                time: new Date().toISOString()
+                            }
+                            // POST to db.json here!
+                            DB.postLocal("http://localhost:3001/local", SubscriptionFunded)
+                        }
+                    })
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    },
     Events: async () => {
         try {
             if (await DB.contractExists("Events", "local")) {
