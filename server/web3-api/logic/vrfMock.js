@@ -34,6 +34,24 @@ module.exports.VRF_Mock = {
         } catch (error) {
             console.error(error)
         }
+    },
+    getSubscription: async (subId) => {
+
+        try {
+            let coordinator = await mockCoordinator(await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local"))
+            // should return an obj
+            let response = await coordinator.getSubscription(subId)
+            let responseObj = {
+                balance: `${hre.ethers.utils.formatEther(response.balance)} LINK`,
+                nativeBalance: `${hre.ethers.utils.formatEther(response.nativeBalance)} HardhatETH`,
+                reqCount: hre.ethers.BigNumber.from(response.reqCount).toNumber(),
+                subOwner: response.subOwner,
+                consumers: response.consumers
+            }
+            return responseObj
+        } catch (error) {
+            console.error(error)
+        }
     }
 }
 

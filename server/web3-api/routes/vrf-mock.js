@@ -15,11 +15,10 @@ router.post("/vrf-mock/subscriptions", async (req, res) => {
 
         if (response === undefined) {
             res.status(502).json({
-                "message": "Error!"
+                "message": "Dun Goofed, Check Logs!"
             })
         } else {
             res.status(200).json({
-                "message": "Subscription Created Successfully!",
                 "tx": response
             })
         }
@@ -28,11 +27,9 @@ router.post("/vrf-mock/subscriptions", async (req, res) => {
         loggedError = error
 
         res.status(500).json({
-            "message": "Subscription Creation Failed!",
             "error": loggedError
         })
     }
-
 })
 
 // get all active subscription ids
@@ -45,7 +42,7 @@ router.get("/vrf-mock/subscriptions", async (req, res) => {
 
         if (response === undefined) {
             res.status(502).json({
-                "message": "Error!"
+                "message": "Dun Goofed, Check Logs!"
             })
         } else {
             let arr = []
@@ -53,7 +50,6 @@ router.get("/vrf-mock/subscriptions", async (req, res) => {
                 arr.push(hre.ethers.BigNumber.from(response[i]).toString())
             }
             res.status(200).json({
-                "message": "Subscription IDs Retrieved Successfully!",
                 "subscriptionIds": arr
             })
         }
@@ -61,7 +57,6 @@ router.get("/vrf-mock/subscriptions", async (req, res) => {
         console.log(`Error: ${error}`)
         loggedError = error
         res.status(500).json({
-            "message": "Server Error!",
             "error": loggedError
         })
     }
@@ -70,21 +65,25 @@ router.get("/vrf-mock/subscriptions", async (req, res) => {
 // get subscription details by id
 router.get("/vrf-mock/subscriptions/:subId", async (req, res) => {
     let loggedError, loggedOutput, response
-
-    // console log the query params
-    console.log(`Query params: ${req.params.subId}`)
-
     try {
-        res.status(200).json({
-            "message": "Subscription Details Retrieved Successfully!",
-            "subscriptionId": req.params.subId
-        })
+        // returns obj if successful
+        response = await VRF_Mock.getSubscription(req.params.subId)
+
+        if (response === undefined) {
+            res.status(502).json({
+                "message": "Dun Goofed, Check Logs!"
+            })
+        } else {
+            res.status(200).json({
+                "subId": hre.ethers.BigNumber.from(req.params.subId).toString(),
+                "subscriptionInfo": response
+            })
+        }
     } catch (error) {
         console.log(`Error: ${error}`)
         loggedError = error
 
         res.status(500).json({
-            "message": "Error!",
             "error": loggedError
         })
     }
@@ -101,11 +100,10 @@ router.post("/vrf-mock/subscriptions/fund", async (req, res) => {
 
         if (response === undefined) {
             res.status(502).json({
-                "message": "Error!"
+                "message": "Dun Goofed, Check Logs!"
             })
         } else {
             res.status(200).json({
-                "message": "Subscription Funded Successfully!",
                 "tx": response
             })
         }
@@ -114,7 +112,6 @@ router.post("/vrf-mock/subscriptions/fund", async (req, res) => {
         loggedError = error
 
         res.status(500).json({
-            "message": "Error!",
             "error": loggedError
         })
     }

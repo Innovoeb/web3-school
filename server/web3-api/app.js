@@ -32,25 +32,21 @@ app.post("/deployments", async (req, res) => {
         
             if (req.body.network === "local") {
                 res.status(200).json({
-                    "message": "Contract Deployment Successful!",
                     "contractAddress": contractAddress,
                     "tx": transactionHash
                 })
             } else if (req.body.network === "sepolia") {
                 res.status(200).json({
-                    "message": "Contract Deployment Successful!",
                     "contractAddress": `https://sepolia.etherscan.io/address/${contractAddress}`,
                     "tx": `https://sepolia.etherscan.io/tx/${transactionHash}`
                 })
             } else if (req.body.network === "polygon_amoy") {
                 res.status(200).json({
-                    "message": "Contract Deployment Successful!",
                     "contractAddress": `https://amoy.polygonscan.com/address/${contractAddress}`,
                     "tx": `https://amoy.polygonscan.com/tx/${transactionHash}`
                 })
             } else if (req.body.network === "arbitrum_sepolia") {
                 res.status(200).json({
-                    "message": "Contract Deployment Successful!",
                     "contractAddress": `https://sepolia.arbiscan.io/address/${contractAddress}`,
                     "tx": `https://sepolia.arbiscan.io/tx/${transactionHash}`
                 })
@@ -60,7 +56,6 @@ app.post("/deployments", async (req, res) => {
         loggedError = error
 
         res.status(500).json({
-            "message": "Contract Deployment Failed!",
             "error": loggedError
         })
     }
