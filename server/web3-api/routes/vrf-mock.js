@@ -5,7 +5,7 @@ const { VRF_Mock } = require('../logic/vrfMock')
 const { DB } = require('../../data/db')
 
 
-// deploy a vrf mock coordinator
+// deploy contracts related to mock vrf
 router.post("/vrf-mock/deployments", async (req, res) => {
     let loggedError
     let loggedOutput
@@ -22,6 +22,38 @@ router.post("/vrf-mock/deployments", async (req, res) => {
                 })
             } else {
                 response = await VRF_Mock.deployCoordinator(req.body.contractName, req.body.network, req.body.params)
+                
+                if (response !== undefined) {
+                    contractAddress = response.contractAddress
+                    transactionHash = response.transactionHash
+                    res.status(200).json({
+                        "contractAddress": contractAddress,
+                        "tx": transactionHash
+                    })
+                } else {
+                    res.status(502).json({
+                        "message": "Dun Goofed, Check Logs!"
+                    })
+                }
+            }
+        } catch (error) {
+            console.log(`Error: ${error}`)
+            loggedError = error
+    
+            res.status(500).json({
+                "error": error
+            })
+        }
+    }
+
+    if (req.body.contractName === "PickOne_Mock") {
+        try {
+            if (await DB.contractExists(req.body.contractName, req.body.network) ) {
+                res.status(400).json({
+                    "message": `Contract Already Exists on ${req.body.network} Network!`
+                })
+            } else {
+                response = await VRF_Mock.deployPickOne(req.body.contractName, req.body.network, req.body.params)
                 
                 if (response !== undefined) {
                     contractAddress = response.contractAddress

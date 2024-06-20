@@ -53,6 +53,15 @@
       "tx": "0x4699c902889df047e710a01617138db77436d7169c3bb73024b5aec246f422b7",
       "network": "local",
       "time": "2024-06-20T21:12:28.860Z"
+    },
+    {
+      "id": "10b8",
+      "type": "contract-deployment",
+      "contractName": "PickOne_Mock",
+      "contractAddress": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      "tx": "0x9cce4e34ee486042dfa62db6607fbae148aa49c80034859ee791edcf36e0a4c2",
+      "network": "local",
+      "time": "2024-06-20T21:36:41.768Z"
     }
   ]
 }
