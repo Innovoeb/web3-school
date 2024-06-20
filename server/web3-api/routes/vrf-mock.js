@@ -2,7 +2,50 @@ const express = require('express')
 const router = express.Router()
 const hre = require('hardhat')
 const { VRF_Mock } = require('../logic/vrfMock')
+const { DB } = require('../../data/db')
 
+
+// deploy a vrf mock coordinator
+router.post("/vrf-mock/deployments", async (req, res) => {
+    let loggedError
+    let loggedOutput
+    let response
+    let contractAddress
+    let transactionHash
+
+    // check for vrf mock coordinator deployment
+    if (req.body.contractName === "VRFCoordinatorV2_5Mock") {
+        try {
+            if (await DB.contractExists(req.body.contractName, req.body.network) ) {
+                res.status(400).json({
+                    "message": `Contract Already Exists on ${req.body.network} Network!`
+                })
+            } else {
+                response = await VRF_Mock.deployCoordinator(req.body.contractName, req.body.network, req.body.params)
+                
+                if (response !== undefined) {
+                    contractAddress = response.contractAddress
+                    transactionHash = response.transactionHash
+                    res.status(200).json({
+                        "contractAddress": contractAddress,
+                        "tx": transactionHash
+                    })
+                } else {
+                    res.status(502).json({
+                        "message": "Dun Goofed, Check Logs!"
+                    })
+                }
+            }
+        } catch (error) {
+            console.log(`Error: ${error}`)
+            loggedError = error
+    
+            res.status(500).json({
+                "error": error
+            })
+        }
+    }
+})
 
 
 // create a subscription

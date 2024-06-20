@@ -7,6 +7,19 @@ const { DB } = require("../../data/db")
 
 
 module.exports.VRF_Mock = {
+    deployCoordinator: async (contractName, network, params) => {
+        let signer, contractFactory, response
+
+        const artifacts = await hre.artifacts.readArtifact(contractName)
+        const provider = new hre.ethers.providers.JsonRpcProvider()
+        signer = provider.getSigner()
+
+        contractFactory = new hre.ethers.ContractFactory(artifacts.abi, artifacts.bytecode, signer)
+        let contract = await contractFactory.deploy(hre.ethers.BigNumber.from("100000000000000000"), params[1], params[2])
+        response = await contract.deployTransaction.wait()
+        DB.postLocal("http://localhost:3001/local", responseOBJ(contractName, response, network))
+        return response
+    },
     createSubscription: async (address) => {
         try {
             let coordinator = await mockCoordinator(address)
@@ -36,7 +49,6 @@ module.exports.VRF_Mock = {
         }
     },
     getSubscription: async (subId) => {
-
         try {
             let coordinator = await mockCoordinator(await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local"))
             // should return an obj
@@ -63,4 +75,15 @@ const mockCoordinator = async (address) => {
         await getABI("VRFCoordinatorV2_5Mock"), 
         Wallet.local
     )
+}
+
+const responseOBJ = (contractName, response, network) => {
+    return {
+        type: "contract-deployment",
+        contractName: contractName,
+        contractAddress: `${response.contractAddress}`,
+        tx: `${response.transactionHash}`,
+        network: network,
+        time: new Date().toISOString()
+    }
 }
