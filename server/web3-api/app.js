@@ -65,5 +65,10 @@ app.listen(port, async () => {
     console.log(`Worker PID: ${process.pid}`)
     //EventListener.Events()
     //EventListener.listenNativeTransactions()
+
+    // BUILDING ONLY!
+    EventListener.VRF_Mock.SubscriptionCreated()
+    EventListener.VRF_Mock.SubscriptionFunded()
+    EventListener.VRF_Mock.SubscriptionConsumerAdded()
 })
 

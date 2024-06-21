@@ -30,6 +30,7 @@ router.post("/vrf-mock/deployments", async (req, res) => {
                     // start listening for vrf mock coordinator events
                     EventListener.VRF_Mock.SubscriptionCreated()
                     EventListener.VRF_Mock.SubscriptionFunded()
+                    EventListener.VRF_Mock.SubscriptionConsumerAdded()
                     res.status(200).json({
                         "contractAddress": contractAddress,
                         "tx": transactionHash

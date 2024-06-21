@@ -84,6 +84,39 @@ module.exports.EventListener = {
             } catch (error) {
                 console.log(error)
             }
+        },
+        SubscriptionConsumerAdded: async () => {
+            try {
+                if (await DB.contractExists("VRFCoordinatorV2_5Mock", "local")) {
+                    let provider = Provider.local
+
+                    const contract = await VRF_Mock.coordinator()
+                    // returns the block number (or height) of the most recently mined block
+                    const startBlockNumber = await provider.getBlockNumber()
+
+                    contract.on("SubscriptionConsumerAdded", async (subId, consumer, blockNumber) => {
+                        // only listen for new events
+                        if (blockNumber <= startBlockNumber) {
+                            return
+                        } else {
+                            let SubscriptionConsumerAdded = {
+                                type: "event",
+                                contractName: "VRFCoordinatorV2_5Mock",
+                                eventName: "SubscriptionConsumerAdded",
+                                contractAddress: await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local"),
+                                network: "local",
+                                subscriptionID: await hre.ethers.BigNumber.from(subId).toString(),
+                                consumer: consumer,
+                                time: new Date().toISOString()
+                            }
+                            // POST to db.json here!
+                            await DB.postLocal("http://localhost:3001/local", SubscriptionConsumerAdded)
+                        }
+                    })
+                }
+            } catch (error) {
+                console.log(error)
+            }
         }
     },
     Events: async () => {
