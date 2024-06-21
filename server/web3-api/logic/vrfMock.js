@@ -85,6 +85,19 @@ module.exports.VRF_Mock = {
         } catch (error) {
             console.error(error)
         }
+    },
+    deployPolicyBank: async (contractName, network, params) => {
+        let signer, contractFactory, response
+
+        const artifacts = await hre.artifacts.readArtifact(contractName)
+        const provider = new hre.ethers.providers.JsonRpcProvider()
+        signer = provider.getSigner()
+
+        contractFactory = new hre.ethers.ContractFactory(artifacts.abi, artifacts.bytecode, signer)
+        let contract = await contractFactory.deploy(params[0]) 
+        response = await contract.deployTransaction.wait()
+        await DB.postLocal("http://localhost:3001/local", responseOBJ(contractName, response, network))
+        return response
     }
 }
 

@@ -75,6 +75,37 @@
       "subscriptionID": "38622322490148239599365018532496165231186644759122016512273477281116904306280",
       "consumer": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
       "time": "2024-06-21T17:38:05.195Z"
+    },
+    {
+      "id": "efa6",
+      "type": "event",
+      "contractName": "VRFCoordinatorV2_5Mock",
+      "eventName": "SubscriptionConsumerAdded",
+      "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "network": "local",
+      "subscriptionID": "38622322490148239599365018532496165231186644759122016512273477281116904306280",
+      "consumer": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      "time": "2024-06-21T18:29:38.221Z"
+    },
+    {
+      "id": "e284",
+      "type": "event",
+      "contractName": "VRFCoordinatorV2_5Mock",
+      "eventName": "SubscriptionConsumerAdded",
+      "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "network": "local",
+      "subscriptionID": "38622322490148239599365018532496165231186644759122016512273477281116904306280",
+      "consumer": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      "time": "2024-06-21T18:32:58.083Z"
+    },
+    {
+      "id": "1d7e",
+      "type": "contract-deployment",
+      "contractName": "PolicyBank_Mock",
+      "contractAddress": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+      "tx": "0x97b0bd4524ced36608a6bb5ccbcf4c9f4125f02fd9c81bd50074531136804aa4",
+      "network": "local",
+      "time": "2024-06-21T18:33:06.569Z"
     }
   ]
 }
