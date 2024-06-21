@@ -11,8 +11,6 @@ app.use(require('cors')())
 app.use(require("./routes/vrf-mock"))
 
 
-
-
 app.post("/deployments", async (req, res) => {
     let loggedError
     let loggedOutput
@@ -62,13 +60,10 @@ app.post("/deployments", async (req, res) => {
 })
 
 
-
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`)
-    console.log(`worker pid=${process.pid}`)
+app.listen(port, async () => {
+    console.log(`Server Initiated On Port ${port}`)
+    console.log(`Worker PID: ${process.pid}`)
     //EventListener.Events()
     //EventListener.listenNativeTransactions()
-    EventListener.VRF_Mock.SubscriptionCreated()
-    EventListener.VRF_Mock.SubscriptionFunded()
 })
 

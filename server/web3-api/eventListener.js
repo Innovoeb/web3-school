@@ -3,6 +3,7 @@ const { vars } = require("hardhat/config")
 const { DB } = require("../data/db.js")
 const { Provider } = require("../utils/providers.js") 
 const { getABI } = require("../utils/getABI.js")
+const { VRF_Mock } = require("./logic/vrfMock.js")
 
 
 
@@ -10,20 +11,14 @@ const { getABI } = require("../utils/getABI.js")
 //const sepoliaContractAddress = "0x08810ED231bca4241fd757291F7Ecf2f02C0c8bF"
 
 
-
-
-
-// listen for the Deposit events on the Events contract
 module.exports.EventListener = {
     VRF_Mock: {
         SubscriptionCreated: async () => {
             try {
                 if (await DB.contractExists("VRFCoordinatorV2_5Mock", "local")) {
-                    let address, abi, provider
-                    address = await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local")
-                    abi = await getABI("VRFCoordinatorV2_5Mock")
-                    provider = Provider.local
-                    const contract = new hre.ethers.Contract(address, abi, provider)
+                    let provider = Provider.local
+
+                    const contract = await VRF_Mock.coordinator()
                     // returns the block number (or height) of the most recently mined block
                     const startBlockNumber = await provider.getBlockNumber()
 
@@ -36,14 +31,14 @@ module.exports.EventListener = {
                                 type: "event",
                                 contractName: "VRFCoordinatorV2_5Mock",
                                 eventName: "SubscriptionCreated",
-                                contractAddress: address,
+                                contractAddress: await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local"),
                                 network: "local",
-                                subscriptionID: await hre.ethers.BigNumber.from(subscriptionID).toString(),
+                                subscriptionID: hre.ethers.BigNumber.from(subscriptionID).toString(),
                                 sender: sender,
                                 time: new Date().toISOString()
                             }
                             // POST to db.json here!
-                            DB.postLocal("http://localhost:3001/local", SubscriptionCreated)
+                            await DB.postLocal("http://localhost:3001/local", SubscriptionCreated)
                         }
                     })
                 }
@@ -56,11 +51,9 @@ module.exports.EventListener = {
         SubscriptionFunded: async () => {
             try {
                 if (await DB.contractExists("VRFCoordinatorV2_5Mock", "local")) {
-                    let address, abi, provider
-                    address = await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local")
-                    abi = await getABI("VRFCoordinatorV2_5Mock")
-                    provider = Provider.local
-                    const contract = new hre.ethers.Contract(address, abi, provider)
+                    let provider = Provider.local
+
+                    const contract = await VRF_Mock.coordinator()
                     // returns the block number (or height) of the most recently mined block
                     const startBlockNumber = await provider.getBlockNumber()
 
@@ -76,7 +69,7 @@ module.exports.EventListener = {
                                 type: "event",
                                 contractName: "VRFCoordinatorV2_5Mock",
                                 eventName: "SubscriptionFunded",
-                                contractAddress: address,
+                                contractAddress: await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local"),
                                 network: "local",
                                 subscriptionID: await hre.ethers.BigNumber.from(subId).toString(),
                                 oldBalance: `${await hre.ethers.utils.formatEther(bigOldBalance)} LINK`,

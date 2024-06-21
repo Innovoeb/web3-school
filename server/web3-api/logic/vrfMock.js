@@ -7,6 +7,14 @@ const { DB } = require("../../data/db")
 
 
 module.exports.VRF_Mock = {
+    // mock coordinator Contract obj
+    coordinator: async () => {
+        return new hre.ethers.Contract(
+            await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local"),
+            await getABI("VRFCoordinatorV2_5Mock"), 
+            Wallet.local
+        )
+    },
     deployCoordinator: async (contractName, network, params) => {
         let signer, contractFactory, response
 
@@ -22,8 +30,7 @@ module.exports.VRF_Mock = {
     },
     createSubscription: async (address) => {
         try {
-            let coordinator = await mockCoordinator(address)
-            return (await coordinator.createSubscription()).hash
+            return (await (await this.VRF_Mock.coordinator()).createSubscription()).hash
         } catch (error) {
             console.error(error)
         }
@@ -31,28 +38,22 @@ module.exports.VRF_Mock = {
     // returns array of subscription ids
     getActiveSubscriptionIds: async () => {
         try {
-            let coordinator = await mockCoordinator(await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local"))
-            return await coordinator.getActiveSubscriptionIds(0, 25)
+            return await (await this.VRF_Mock.coordinator()).getActiveSubscriptionIds(0, 25)
         } catch (error) {
             console.error(error)
         }
     },
     fundSubscription: async (subId, linkAmount) => {
         try {
-            let coordinator = await mockCoordinator(await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local"))
-            //let x = hre.ethers.BigNumber.from(subId.toString())
-            //let y = hre.ethers.BigNumber.from(linkAmount.toString())
-
-            return (await coordinator.fundSubscription(subId, linkAmount)).hash
+            return (await (await this.VRF_Mock.coordinator()).fundSubscription(subId, linkAmount)).hash
         } catch (error) {
             console.error(error)
         }
     },
     getSubscription: async (subId) => {
         try {
-            let coordinator = await mockCoordinator(await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local"))
             // should return an obj
-            let response = await coordinator.getSubscription(subId)
+            let response = await (await this.VRF_Mock.coordinator()).getSubscription(subId)
             let responseObj = {
                 balance: `${hre.ethers.utils.formatEther(response.balance)} LINK`,
                 nativeBalance: `${hre.ethers.utils.formatEther(response.nativeBalance)} HardhatETH`,
@@ -77,18 +78,16 @@ module.exports.VRF_Mock = {
         response = await contract.deployTransaction.wait()
         DB.postLocal("http://localhost:3001/local", responseOBJ(contractName, response, network))
         return response
+    },
+    addConsumer: async (subId, consumerAddress) => {
+        try {
+            return (await (await this.VRF_Mock.coordinator()).addConsumer(subId, consumerAddress)).hash
+        } catch (error) {
+            console.error(error)
+        }
     }
 }
 
-
-// mock coordinator Contract obj
-const mockCoordinator = async (address) => {
-    return new hre.ethers.Contract(
-        address,
-        await getABI("VRFCoordinatorV2_5Mock"), 
-        Wallet.local
-    )
-}
 
 const responseOBJ = (contractName, response, network) => {
     return {
