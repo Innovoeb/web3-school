@@ -15,104 +15,38 @@ router.post("/vrf-mock/deployments", async (req, res) => {
     let transactionHash
 
     // check for vrf mock coordinator deployment
-    if (req.body.contractName === "VRFCoordinatorV2_5Mock") {
-        try {
-            if (await DB.contractExists(req.body.contractName, req.body.network) ) {
-                res.status(400).json({
-                    "message": `Contract Already Exists on ${req.body.network} Network!`
+    try {
+        if (await DB.contractExists(req.body.contractName, req.body.network) ) {
+            res.status(400).json({
+                "message": `Contract Already Exists on ${req.body.network} Network!`
+            })
+        } else {
+            response = await VRF_Mock.deployCoordinator(req.body.contractName, req.body.network, req.body.params)
+            
+            if (response !== undefined) {
+                contractAddress = response.contractAddress
+                transactionHash = response.transactionHash
+                // start listening for vrf mock coordinator events
+                EventListener.VRF_Mock.SubscriptionCreated()
+                EventListener.VRF_Mock.SubscriptionFunded()
+                EventListener.VRF_Mock.SubscriptionConsumerAdded()
+                res.status(200).json({
+                    "contractAddress": contractAddress,
+                    "tx": transactionHash
                 })
             } else {
-                response = await VRF_Mock.deployCoordinator(req.body.contractName, req.body.network, req.body.params)
-                
-                if (response !== undefined) {
-                    contractAddress = response.contractAddress
-                    transactionHash = response.transactionHash
-                    // start listening for vrf mock coordinator events
-                    EventListener.VRF_Mock.SubscriptionCreated()
-                    EventListener.VRF_Mock.SubscriptionFunded()
-                    EventListener.VRF_Mock.SubscriptionConsumerAdded()
-                    res.status(200).json({
-                        "contractAddress": contractAddress,
-                        "tx": transactionHash
-                    })
-                } else {
-                    res.status(502).json({
-                        "message": "Dun Goofed, Check Logs!"
-                    })
-                }
+                res.status(502).json({
+                    "message": "Dun Goofed, Check Logs!"
+                })
             }
-        } catch (error) {
-            console.log(`Error: ${error}`)
-            loggedError = error
-    
-            res.status(500).json({
-                "error": error
-            })
         }
-    }
+    } catch (error) {
+        console.log(`Error: ${error}`)
+        loggedError = error
 
-    if (req.body.contractName === "PickOne_Mock") {
-        try {
-            if (await DB.contractExists(req.body.contractName, req.body.network) ) {
-                res.status(400).json({
-                    "message": `Contract Already Exists on ${req.body.network} Network!`
-                })
-            } else {
-                response = await VRF_Mock.deployPickOne(req.body.contractName, req.body.network, req.body.params)
-                
-                if (response !== undefined) {
-                    contractAddress = response.contractAddress
-                    transactionHash = response.transactionHash
-                    res.status(200).json({
-                        "contractAddress": contractAddress,
-                        "tx": transactionHash
-                    })
-                } else {
-                    res.status(502).json({
-                        "message": "Dun Goofed, Check Logs!"
-                    })
-                }
-            }
-        } catch (error) {
-            console.log(`Error: ${error}`)
-            loggedError = error
-    
-            res.status(500).json({
-                "error": error
-            })
-        }
-    }
-
-    if (req.body.contractName === "PolicyBank_Mock") {
-        try {
-            if (await DB.contractExists(req.body.contractName, req.body.network) ) {
-                res.status(400).json({
-                    "message": `Contract Already Exists on ${req.body.network} Network!`
-                })
-            } else {
-                response = await VRF_Mock.deployPolicyBank(req.body.contractName, req.body.network, req.body.params)
-                
-                if (response !== undefined) {
-                    contractAddress = response.contractAddress
-                    transactionHash = response.transactionHash
-                    res.status(200).json({
-                        "contractAddress": contractAddress,
-                        "tx": transactionHash
-                    })
-                } else {
-                    res.status(502).json({
-                        "message": "Dun Goofed, Check Logs!"
-                    })
-                }
-            }
-        } catch (error) {
-            console.log(`Error: ${error}`)
-            loggedError = error
-    
-            res.status(500).json({
-                "error": error
-            })
-        }
+        res.status(500).json({
+            "error": error
+        })
     }
 })
 

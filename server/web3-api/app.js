@@ -11,7 +11,6 @@ app.use(require('cors')())
 app.use(require("./routes/vrf-mock"))
 
 
-
 app.post("/deployments", async (req, res) => {
     let loggedError, loggedOutput, response
     

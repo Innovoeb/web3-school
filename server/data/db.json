@@ -15,6 +15,20 @@
       "contractAddress": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
       "tx": "0x173f804b855b140ed7ad879c834b6b401476fab6cd5b9139da12b2a36a99e154",
       "time": "2024-06-22T21:21:42.463Z"
+    },
+    {
+      "id": "f5f9",
+      "contractName": "Arrays",
+      "contractAddress": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+      "tx": "0x0d6b82ef5fe72611e702e1aa8b43fca014e38993633f730755c903e7b5fc2f2f",
+      "time": "2024-06-22T21:48:27.701Z"
+    },
+    {
+      "id": "460c",
+      "contractName": "Functions",
+      "contractAddress": "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
+      "tx": "0xc479fbf69ae6c045f9161cb3cf5a3ed0f1a373c141a0134bcd0f799a3c43d333",
+      "time": "2024-06-22T21:53:39.782Z"
     }
   ],
   "local-events": []
