@@ -9,6 +9,7 @@ const { EventListener } = require("./eventListener")
 app.use(express.json())
 app.use(require('cors')())
 app.use(require("./routes/vrf-mock"))
+app.use(require("./routes/policy-bank"))
 
 
 app.post("/deployments", async (req, res) => {

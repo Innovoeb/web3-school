@@ -2,7 +2,7 @@ const hre = require("hardhat")
 const { vars } = require("hardhat/config")
 const { DB } = require("../data/db.js")
 const { Provider } = require("../utils/providers.js") 
-const { getABI } = require("../utils/getABI.js")
+const { getABI } = require("../utils/artifacts.js")
 const { VRF_Mock } = require("./logic/vrfMock.js")
 
 

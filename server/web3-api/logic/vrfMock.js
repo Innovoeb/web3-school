@@ -1,6 +1,6 @@
 const hre = require("hardhat")
 const { Wallet } = require("../../utils/wallets")
-const { getABI } = require("../../utils/getABI")
+const { getABI } = require("../../utils/artifacts")
 const { DB } = require("../../data/db")
 
 
