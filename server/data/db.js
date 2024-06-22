@@ -1,5 +1,5 @@
 module.exports.DB = {
-  postLocal: async (url, data) => {
+  post: async (url, data) => {
     try {
       await fetch(url, {
         method: "POST",
@@ -15,7 +15,7 @@ module.exports.DB = {
   contractExists: async (contractName, network) => {
     try {
       if (network == "local") {
-        const response = await fetch("http://localhost:3001/local");
+        const response = await fetch("http://localhost:3001/local-deployments");
         const data = await response.json();
         let exsists = false;
 
@@ -34,7 +34,7 @@ module.exports.DB = {
   getContractAddress: async (contractName, network) => {
     try {
       if (network == "local") {
-        const response = await fetch("http://localhost:3001/local");
+        const response = await fetch("http://localhost:3001/local-deployments");
         const data = await response.json();
         let contractAddress;
 
