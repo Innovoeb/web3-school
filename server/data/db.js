@@ -43,20 +43,24 @@ module.exports.DB = {
   getContractAddress: async (contractName, network) => {
     try {
       if (network == "local") {
-        const response = await fetch("http://localhost:3001/local-deployments");
-        const data = await response.json();
-        let contractAddress;
-
-        data.map((i) => {
-          if (i.contractName == contractName) {
-            contractAddress = i.contractAddress;
-            return;
+        const response = await fetch("http://localhost:3001/local-deployments")
+        const data = await response.json()
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].contractName == contractName) {
+            return data[i].contractAddress;
           }
-        });
-        return contractAddress;
+        }
+      } else {
+        const response = await fetch("http://localhost:3001/testnet-deployments")
+        const data = await response.json()
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].contractName == contractName) {
+            return data[i].contractAddress;
+          }
+        }
       }
     } catch (error) {
       console.log(error);
     }
-  },
+  }
 }

@@ -1,9 +1,7 @@
 const hre = require("hardhat")
 const { Wallet } = require("../../utils/wallets")
-const { getABI } = require("../../utils/artifacts")
+const { Artifacts } = require("../../utils/artifacts")
 const { DB } = require("../../data/db")
-
-
 
 
 module.exports.VRF_Mock = {
@@ -11,24 +9,29 @@ module.exports.VRF_Mock = {
     coordinator: async () => {
         return new hre.ethers.Contract(
             await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local"),
-            await getABI("VRFCoordinatorV2_5Mock"), 
+            await Artifacts.getABI("VRFCoordinatorV2_5Mock"), 
             Wallet.local
         )
     },
-    deployCoordinator: async (contractName, network, params) => {
-        let signer, contractFactory, response
+    deployCoordinator: async (contractName, params) => {
+        let contractFactory, response
 
-        const artifacts = await hre.artifacts.readArtifact(contractName)
-        const provider = new hre.ethers.providers.JsonRpcProvider()
-        signer = provider.getSigner()
-
-        contractFactory = new hre.ethers.ContractFactory(artifacts.abi, artifacts.bytecode, signer)
-        let contract = await contractFactory.deploy(hre.ethers.BigNumber.from("100000000000000000"), params[1], params[2])
-        response = await contract.deployTransaction.wait()
-        DB.postLocal("http://localhost:3001/local", responseOBJ(contractName, response, network))
+        contractFactory = new hre.ethers.ContractFactory(
+            await Artifacts.getABI(contractName), 
+            await Artifacts.getBytecode(contractName), 
+            Wallet.local
+        )
+        let contract = await contractFactory.deploy(params[0], params[1], params[2])
+        response = await contract.deploymentTransaction().wait(1)
+        DB.post("http://localhost:3001/local-deployments", {
+            "contractName": contractName,
+            "contractAddress": response.contractAddress,
+            "tx": response.hash,
+            "time": new Date().toISOString()
+        })
         return response
     },
-    createSubscription: async (address) => {
+    createSubscription: async () => {
         try {
             return (await (await this.VRF_Mock.coordinator()).createSubscription()).hash
         } catch (error) {
@@ -38,7 +41,7 @@ module.exports.VRF_Mock = {
     // returns array of subscription ids
     getActiveSubscriptionIds: async () => {
         try {
-            return await (await this.VRF_Mock.coordinator()).getActiveSubscriptionIds(0, 25)
+            return await (await this.VRF_Mock.coordinator()).getActiveSubscriptionIds(0, 50)
         } catch (error) {
             console.error(error)
         }
@@ -54,30 +57,16 @@ module.exports.VRF_Mock = {
         try {
             // should return an obj
             let response = await (await this.VRF_Mock.coordinator()).getSubscription(subId)
-            let responseObj = {
-                balance: `${hre.ethers.utils.formatEther(response.balance)} LINK`,
-                nativeBalance: `${hre.ethers.utils.formatEther(response.nativeBalance)} HardhatETH`,
-                reqCount: hre.ethers.BigNumber.from(response.reqCount).toNumber(),
-                subOwner: response.subOwner,
-                consumers: response.consumers
+            return {
+                "balance": `${hre.ethers.formatEther(response.balance)} LINK`,
+                "nativeBalance": `${hre.ethers.formatEther(response.nativeBalance)} HardhatETH`,
+                "reqCount": hre.ethers.toNumber(response.reqCount),
+                "subOwner": response.subOwner,
+                "consumers": response.consumers
             }
-            return responseObj
         } catch (error) {
             console.error(error)
         }
-    },
-    deployPickOne: async (contractName, network, params) => {
-        let signer, contractFactory, response
-
-        const artifacts = await hre.artifacts.readArtifact(contractName)
-        const provider = new hre.ethers.providers.JsonRpcProvider()
-        signer = provider.getSigner()
-
-        contractFactory = new hre.ethers.ContractFactory(artifacts.abi, artifacts.bytecode, signer)
-        let contract = await contractFactory.deploy(params[0], params[1], params[2]) // TODO: add params
-        response = await contract.deployTransaction.wait()
-        DB.postLocal("http://localhost:3001/local", responseOBJ(contractName, response, network))
-        return response
     },
     addConsumer: async (subId, consumerAddress) => {
         try {
@@ -86,29 +75,6 @@ module.exports.VRF_Mock = {
             console.error(error)
         }
     },
-    deployPolicyBank: async (contractName, network, params) => {
-        let signer, contractFactory, response
-
-        const artifacts = await hre.artifacts.readArtifact(contractName)
-        const provider = new hre.ethers.providers.JsonRpcProvider()
-        signer = provider.getSigner()
-
-        contractFactory = new hre.ethers.ContractFactory(artifacts.abi, artifacts.bytecode, signer)
-        let contract = await contractFactory.deploy(params[0]) 
-        response = await contract.deployTransaction.wait()
-        await DB.postLocal("http://localhost:3001/local", responseOBJ(contractName, response, network))
-        return response
-    }
 }
 
 
-const responseOBJ = (contractName, response, network) => {
-    return {
-        type: "contract-deployment",
-        contractName: contractName,
-        contractAddress: `${response.contractAddress}`,
-        tx: `${response.transactionHash}`,
-        network: network,
-        time: new Date().toISOString()
-    }
-}

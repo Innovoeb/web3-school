@@ -21,21 +21,19 @@ router.post("/vrf-mock/deployments", async (req, res) => {
                 "message": `Contract Already Exists on ${req.body.network} Network!`
             })
         } else {
-            response = await VRF_Mock.deployCoordinator(req.body.contractName, req.body.network, req.body.params)
+            response = await VRF_Mock.deployCoordinator(req.body.contractName, req.body.params)
             
             if (response !== undefined) {
-                contractAddress = response.contractAddress
-                transactionHash = response.transactionHash
                 // start listening for vrf mock coordinator events
                 EventListener.VRF_Mock.SubscriptionCreated()
                 EventListener.VRF_Mock.SubscriptionFunded()
                 EventListener.VRF_Mock.SubscriptionConsumerAdded()
                 res.status(200).json({
-                    "contractAddress": contractAddress,
-                    "tx": transactionHash
+                    "contractAddress": response.contractAddress,
+                    "tx": response.hash
                 })
             } else {
-                res.status(502).json({
+                res.status(500).json({
                     "message": "Dun Goofed, Check Logs!"
                 })
             }
@@ -45,7 +43,7 @@ router.post("/vrf-mock/deployments", async (req, res) => {
         loggedError = error
 
         res.status(500).json({
-            "error": error
+            "error": "error w/ API Request!"
         })
     }
 })
@@ -55,9 +53,10 @@ router.post("/vrf-mock/deployments", async (req, res) => {
 router.post("/vrf-mock/subscriptions", async (req, res) => {
     let loggedError, loggedOutput, response
     
+    // TODO: validate inputted address == vrf mock coordinator address
     try {
         // returns tx if successful
-        response = await VRF_Mock.createSubscription(req.body.address)
+        response = await VRF_Mock.createSubscription(req.body.coordinatorAddress)
 
         if (response === undefined) {
             res.status(502).json({
@@ -93,7 +92,7 @@ router.get("/vrf-mock/subscriptions", async (req, res) => {
         } else {
             let arr = []
             for (let i = 0; i < response.length; i++) {
-                arr.push(hre.ethers.BigNumber.from(response[i]).toString())
+                arr.push(BigInt(response[i]).toString())
             }
             res.status(200).json({
                 "subscriptionIds": arr
@@ -121,7 +120,7 @@ router.get("/vrf-mock/subscriptions/:subId", async (req, res) => {
             })
         } else {
             res.status(200).json({
-                "subId": hre.ethers.BigNumber.from(req.params.subId).toString(),
+                "subId": req.params.subId,
                 "subscriptionInfo": response
             })
         }

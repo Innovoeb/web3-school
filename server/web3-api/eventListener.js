@@ -16,29 +16,24 @@ module.exports.EventListener = {
         SubscriptionCreated: async () => {
             try {
                 if (await DB.contractExists("VRFCoordinatorV2_5Mock", "local")) {
-                    let provider = Provider.local
-
                     const contract = await VRF_Mock.coordinator()
                     // returns the block number (or height) of the most recently mined block
-                    const startBlockNumber = await provider.getBlockNumber()
+                    const startBlockNumber = await (Provider.local).getBlockNumber()
 
                     contract.on("SubscriptionCreated", async (subscriptionID, sender, blockNumber) => {
                         // only listen for new events
                         if (blockNumber <= startBlockNumber) {
                             return
                         } else {
-                            let SubscriptionCreated = {
-                                type: "event",
+                            // POST to db.json here!
+                            await DB.post("http://localhost:3001/local-events", {
                                 contractName: "VRFCoordinatorV2_5Mock",
                                 eventName: "SubscriptionCreated",
-                                contractAddress: await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local"),
-                                network: "local",
-                                subscriptionID: hre.ethers.BigNumber.from(subscriptionID).toString(),
+                                coordinatorAddress: await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local"),
+                                subscriptionID: BigInt(subscriptionID).toString(),
                                 sender: sender,
                                 time: new Date().toISOString()
-                            }
-                            // POST to db.json here!
-                            await DB.postLocal("http://localhost:3001/local", SubscriptionCreated)
+                            })
                         }
                     })
                 }
@@ -51,33 +46,26 @@ module.exports.EventListener = {
         SubscriptionFunded: async () => {
             try {
                 if (await DB.contractExists("VRFCoordinatorV2_5Mock", "local")) {
-                    let provider = Provider.local
 
                     const contract = await VRF_Mock.coordinator()
                     // returns the block number (or height) of the most recently mined block
-                    const startBlockNumber = await provider.getBlockNumber()
+                    const startBlockNumber = await (Provider.local).getBlockNumber()
 
                     contract.on("SubscriptionFunded", async (subId, oldBalance, newBalance, blockNumber) => {
                         // only listen for new events
                         if (blockNumber <= startBlockNumber) {
                             return
                         } else {
-                            let bigOldBalance = await hre.ethers.BigNumber.from(oldBalance)
-                            let bigNewBalance = await hre.ethers.BigNumber.from(newBalance)
-
-                            let SubscriptionFunded = {
-                                type: "event",
+                            // POST to db.json here!
+                            DB.post("http://localhost:3001/local-events", {
                                 contractName: "VRFCoordinatorV2_5Mock",
                                 eventName: "SubscriptionFunded",
                                 contractAddress: await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local"),
-                                network: "local",
-                                subscriptionID: await hre.ethers.BigNumber.from(subId).toString(),
-                                oldBalance: `${await hre.ethers.utils.formatEther(bigOldBalance)} LINK`,
-                                newBalance: `${await hre.ethers.utils.formatEther(bigNewBalance)} LINK`,
+                                subscriptionID: BigInt(subId).toString(),
+                                oldBalance: `${await hre.ethers.formatEther(oldBalance)} LINK`,
+                                newBalance: `${await hre.ethers.formatEther(newBalance)} LINK`,
                                 time: new Date().toISOString()
-                            }
-                            // POST to db.json here!
-                            DB.postLocal("http://localhost:3001/local", SubscriptionFunded)
+                            })
                         }
                     })
                 }
@@ -88,29 +76,25 @@ module.exports.EventListener = {
         SubscriptionConsumerAdded: async () => {
             try {
                 if (await DB.contractExists("VRFCoordinatorV2_5Mock", "local")) {
-                    let provider = Provider.local
-
+    
                     const contract = await VRF_Mock.coordinator()
                     // returns the block number (or height) of the most recently mined block
-                    const startBlockNumber = await provider.getBlockNumber()
+                    const startBlockNumber = await (Provider.local).getBlockNumber()
 
                     contract.on("SubscriptionConsumerAdded", async (subId, consumer, blockNumber) => {
                         // only listen for new events
                         if (blockNumber <= startBlockNumber) {
                             return
                         } else {
-                            let SubscriptionConsumerAdded = {
-                                type: "event",
+                            // POST to db.json here!
+                            await DB.postLocal("http://localhost:3001/local", {
                                 contractName: "VRFCoordinatorV2_5Mock",
                                 eventName: "SubscriptionConsumerAdded",
                                 contractAddress: await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local"),
-                                network: "local",
-                                subscriptionID: await hre.ethers.BigNumber.from(subId).toString(),
-                                consumer: consumer,
+                                subscriptionID: BigInt(subId).toString(),
+                                consumerAddress: consumer,
                                 time: new Date().toISOString()
-                            }
-                            // POST to db.json here!
-                            await DB.postLocal("http://localhost:3001/local", SubscriptionConsumerAdded)
+                            })
                         }
                     })
                 }

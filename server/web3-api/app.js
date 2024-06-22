@@ -67,8 +67,8 @@ app.listen(port, async () => {
     //EventListener.listenNativeTransactions()
 
     // BUILDING ONLY! uncomment only after vrf mock coordinator has been deployed
-    //EventListener.VRF_Mock.SubscriptionCreated()
-    //EventListener.VRF_Mock.SubscriptionFunded()
-    //EventListener.VRF_Mock.SubscriptionConsumerAdded()
+    EventListener.VRF_Mock.SubscriptionCreated()
+    EventListener.VRF_Mock.SubscriptionFunded()
+    EventListener.VRF_Mock.SubscriptionConsumerAdded()
 })
 
