@@ -1,9 +1,9 @@
 
 require("@nomicfoundation/hardhat-toolbox")
-require("@chainlink/hardhat-chainlink")
-require('./scripts/chainlink-vrf/getVRFSubscription.js')
-require('./scripts/chainlink-vrf/drawNumbers.js')
-require('./scripts/chainlink-functions/getFunctionsSubscription.js')
+//require("@chainlink/hardhat-chainlink")
+//require('./scripts/chainlink-vrf/getVRFSubscription.js')
+//require('./scripts/chainlink-vrf/drawNumbers.js')
+//require('./scripts/chainlink-functions/getFunctionsSubscription.js')
 const INFURA_API_KEY = vars.get("INFURA_API_KEY")
 const DEV_WALLET = vars.get("DEV_WALLET")
 

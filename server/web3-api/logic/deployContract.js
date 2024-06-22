@@ -1,7 +1,7 @@
 const hre = require("hardhat")
-const { Wallet } = require("./wallets")
-const { DB } = require("../data/db")
-const { Artifacts } = require("./artifacts")
+const { Wallet } = require("../../utils/wallets")
+const { DB } = require("../../data/db")
+const { Artifacts } = require("../../utils/artifacts")
 
 
 module.exports.deployContract = async (contractName, network, params) => {
@@ -18,7 +18,6 @@ module.exports.deployContract = async (contractName, network, params) => {
             contractName: contractName,
             contractAddress: response.contractAddress,
             tx: response.hash,
-            network: network,
             time: new Date().toISOString()
         })
     } else if (network === "sepolia") {

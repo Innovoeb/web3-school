@@ -2,7 +2,20 @@
   "testnet-deployments": [],
   "testnet-events": [],
   "local-deployments": [
+    {
+      "id": "5f24",
+      "contractName": "Events",
+      "contractAddress": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "tx": "0x3c56f918b6e0afeb2eee2f7e394d7ec04764ddf10d91c2a9f2ad9e0fec638830",
+      "time": "2024-06-22T21:21:20.289Z"
+    },
+    {
+      "id": "ce22",
+      "contractName": "DataTypes",
+      "contractAddress": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      "tx": "0x173f804b855b140ed7ad879c834b6b401476fab6cd5b9139da12b2a36a99e154",
+      "time": "2024-06-22T21:21:42.463Z"
+    }
   ],
-  "local-events": [
-  ]
+  "local-events": []
 }

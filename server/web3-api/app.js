@@ -1,7 +1,7 @@
 const express = require("express")
 const port = 3000
 const app = express()
-const { deployContract } = require("../utils/deployContract")
+const { deployContract } = require("./logic/deployContract")
 const { DB } = require("../data/db")
 const { EventListener } = require("./eventListener")
 
@@ -13,12 +13,8 @@ app.use(require("./routes/vrf-mock"))
 
 
 app.post("/deployments", async (req, res) => {
-    let loggedError
-    let loggedOutput
-    let response
-    let contractAddress
-    let transactionHash
-
+    let loggedError, loggedOutput, response
+    
     try {
         if (await DB.contractExists(req.body.contractName, req.body.network) ) {
             res.status(400).json({
@@ -26,36 +22,40 @@ app.post("/deployments", async (req, res) => {
             })
         } else {
             response = await deployContract(req.body.contractName, req.body.network, req.body.params)
-            contractAddress = response.contractAddress
-            transactionHash = response.transactionHash
+
+            if (response == undefined) {
+                res.status(500).json({
+                    "error": "Dun Goofed, Check Logs!"
+                })
+            }
         
-            if (req.body.network === "local") {
+            if (response !== undefined && req.body.network === "local") {
                 res.status(200).json({
-                    "contractAddress": contractAddress,
-                    "tx": transactionHash
+                    "contractAddress": response.contractAddress,
+                    "tx": response.hash
                 })
-            } else if (req.body.network === "sepolia") {
+            } else if (response !== undefined && req.body.network === "sepolia") {
                 res.status(200).json({
-                    "contractAddress": `https://sepolia.etherscan.io/address/${contractAddress}`,
-                    "tx": `https://sepolia.etherscan.io/tx/${transactionHash}`
+                    "contractAddress": `https://sepolia.etherscan.io/address/${response.contractAddress}`,
+                    "tx": `https://sepolia.etherscan.io/tx/${response.hash}`
                 })
-            } else if (req.body.network === "polygon_amoy") {
+            } else if (response !== undefined && req.body.network === "polygon_amoy") {
                 res.status(200).json({
-                    "contractAddress": `https://amoy.polygonscan.com/address/${contractAddress}`,
-                    "tx": `https://amoy.polygonscan.com/tx/${transactionHash}`
+                    "contractAddress": `https://amoy.polygonscan.com/address/${response.contractAddress}`,
+                    "tx": `https://amoy.polygonscan.com/tx/${response.hash}`
                 })
-            } else if (req.body.network === "arbitrum_sepolia") {
+            } else if (response !== undefined && req.body.network === "arbitrum_sepolia") {
                 res.status(200).json({
                     "contractAddress": `https://sepolia.arbiscan.io/address/${contractAddress}`,
                     "tx": `https://sepolia.arbiscan.io/tx/${transactionHash}`
                 })
-            }} 
+            }}
     } catch (error) {
         console.log(`Error: ${error}`)
         loggedError = error
 
         res.status(500).json({
-            "error": loggedError
+            "error": "Error w/ API Request!"
         })
     }
 })
