@@ -1,4 +1,5 @@
 import '../styles/Contracts.css'
+import Header from '../components/Header'
 import { useState } from 'react'
 import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers5/react'
 import { ethers } from "ethers"
@@ -72,17 +73,21 @@ const Contracts = () => {
     }
 
 
-    return ( 
-        <div className="contracts-content">
-            <button onClick={getNumber}>Read</button>
-            <div className="divider"></div>
-            <input type="number" value={value} onChange={handleChange}/>
-            <button onClick={setNumber}>Write</button>
-            <div className="divider"></div>
-            <input type="text" value={ethvalue} onChange={handleEthChange}/>
-            <button id="pay" onClick={pay}>Pay</button>
-            <button onClick={getBalance}>Balance</button>
-        </div> 
+    return (
+        <>
+            <Header />
+            <div className="contracts-content">
+                <button onClick={getNumber}>Read</button>
+                <div className="divider"></div>
+                <input type="number" value={value} onChange={handleChange}/>
+                <button onClick={setNumber}>Write</button>
+                <div className="divider"></div>
+                <input type="text" value={ethvalue} onChange={handleEthChange}/>
+                <button id="pay" onClick={pay}>Pay</button>
+                <button onClick={getBalance}>Balance</button>
+            </div> 
+        </> 
+        
     )
 }
  

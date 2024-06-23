@@ -1,3 +1,4 @@
+import Header from '../components/Header'
 import { 
     useWeb3Modal, 
     useWalletInfo, 
@@ -25,17 +26,18 @@ const Hooks = () => {
         console.log(`Balance: ${ethers.utils.formatEther(balance)}`)
     }
 
-    return ( 
-        <div className="hooks-content">
-            <button onClick={() => open()}>Connect</button>
-            <button onClick={() => open({ view: 'Networks' })}>Networks</button>
-            <button onClick={() => open({ view: 'WhatIsAWallet' })}>Wallets</button>
-            <button onClick={() => console.log(address, chainId, isConnected)}>Info</button>
-            <button onClick={getBalance}>Balance</button>
-        </div>
-        
-        
-     )
+    return (
+        <>
+            <Header />
+            <div className="hooks-content">
+                <button onClick={() => open()}>Connect</button>
+                <button onClick={() => open({ view: 'Networks' })}>Networks</button>
+                <button onClick={() => open({ view: 'WhatIsAWallet' })}>Wallets</button>
+                <button onClick={() => console.log(address, chainId, isConnected)}>Info</button>
+                <button onClick={getBalance}>Balance</button>
+            </div>
+        </>   
+    )
 }
  
-export default Hooks;
+export default Hooks
