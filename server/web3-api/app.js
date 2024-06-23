@@ -2,7 +2,7 @@ const express = require("express")
 const port = 3000
 const app = express()
 const { deployContract } = require("./logic/deployContract")
-const { DB } = require("../data/db")
+const { DB } = require("../../data/db")
 const { EventListener } = require("./eventListener")
 
 

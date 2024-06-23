@@ -1,6 +1,6 @@
 const hre = require("hardhat")
 const { vars } = require("hardhat/config")
-const { DB } = require("../data/db.js")
+const { DB } = require("../../data/db.js")
 const { Provider } = require("../utils/providers.js") 
 const { getABI } = require("../utils/artifacts.js")
 const { VRF_Mock } = require("./logic/vrfMock.js")
@@ -37,7 +37,6 @@ module.exports.EventListener = {
                         }
                     })
                 }
-
             } catch (error) {
                 console.log(error)
             }

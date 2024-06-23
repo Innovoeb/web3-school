@@ -1,7 +1,7 @@
 const hre = require("hardhat")
 const { Wallet } = require("../../utils/wallets")
 const { Artifacts } = require("../../utils/artifacts")
-const { DB } = require("../../data/db")
+const { DB } = require("../../../data/db")
 
 
 module.exports.VRF_Mock = {

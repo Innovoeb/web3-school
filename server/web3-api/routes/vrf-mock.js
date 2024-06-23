@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const hre = require('hardhat')
 const { VRF_Mock } = require('../logic/vrfMock')
-const { DB } = require('../../data/db')
+const { DB } = require('../../../data/db')
 const { EventListener } = require('../eventListener')
 
 
