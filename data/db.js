@@ -62,5 +62,36 @@ module.exports.DB = {
     } catch (error) {
       console.log(error);
     }
+  },
+  deleteLocal: async (url) => {
+    let response, data
+
+    try {
+      switch (url) {
+        case "http://localhost:3001/local-deployments":
+          response = await fetch("http://localhost:3001/local-deployments")
+          data = await response.json()
+          for (let i = 0; i < data.length; i++) {
+            await fetch(`http://localhost:3001/local-deployments/${data[i].id}`, {
+              method: "DELETE",
+            })
+          }
+          return data
+        case "http://localhost:3001/local-events":
+          response = await fetch("http://localhost:3001/local-events")
+          data = await response.json()
+          for (let i = 0; i < data.length; i++) {
+            await fetch(`http://localhost:3001/local-events/${data[i].id}`, {
+              method: "DELETE",
+            });
+          }
+          return data
+        default:
+          console.log("Invalid URL")
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

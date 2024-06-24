@@ -1,32 +1,116 @@
-.home-content {
-    margin: 0 auto;
-    height: 30rem;
-    width: 46rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-.card {
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: solid 2px transparent;
-    border-radius: 10px; 
-    height: 4rem;
-    width: 8rem;
-    font-size: 1rem;
-    font-weight: bold;
-    margin: 0 2rem;
-    background-color: #242424;
-    color: white;
-}
 
 .card:hover {
     border: solid 2px #D4AF37;
     background-color: #D4AF37;
     color: black;
     cursor: pointer;
+}
+
+/* 4k */
+@media (max-width: 2560px) {
+    .home-content {
+        margin: 0 auto;
+        height: 30rem;
+        width: 46rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .card {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: solid 2px transparent;
+        border-radius: 10px; 
+        height: 4rem;
+        width: 8rem;
+        font-size: 1rem;
+        font-weight: bold;
+        margin: 0 2rem;
+        background-color: #242424;
+        color: white;
+    }
+}
+  
+/* Laptop L */
+@media (max-width: 1440px) {
+    
+}
+  
+/* Laptop */
+@media (max-width: 1024px) {
+    
+}
+  
+/* Tablet */
+@media (max-width: 768px) {
+    
+}
+  
+/* Mobile L */
+@media (max-width: 425px) {
+    .home-content {
+        margin: 0 auto;
+        height: 30rem;
+        width: 20rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .card {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: solid 2px transparent;
+        border-radius: 10px; 
+        height: 4rem;
+        width: 8rem;
+        font-size: 1rem;
+        font-weight: bold;
+        margin: 0 1.6rem;
+        background-color: #242424;
+        color: white;
+    }
+    
+}
+  
+/* Mobile M */
+@media (max-width: 375px) {
+    .home-content {
+        margin: 0 auto;
+        height: 14rem;
+        width: 2rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .card {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: solid 2px transparent;
+        border-radius: 10px; 
+        height: 4rem;
+        width: 8rem;
+        font-size: 1rem;
+        font-weight: bold;
+        margin: 0 1.4rem;
+        background-color: #242424;
+        color: white;
+    }
+    
+}
+  
+/* Mobile S */
+@media (max-width: 320px) {
+    
 }

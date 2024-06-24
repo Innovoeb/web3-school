@@ -68,6 +68,10 @@ module.exports.deployContract = async (contractName, network, params) => {
 
 // handle contract constructor params during deployment
 const deploy = async (contractFactory, params) => {
+    // switch (params.length) {
+    //     case 0:
+    //         return 
+    // }
     if (params.length == 0) {
         const contract = await contractFactory.deploy()
         const response = await contract.deploymentTransaction().wait(1)

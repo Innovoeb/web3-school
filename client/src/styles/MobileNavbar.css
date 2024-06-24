@@ -1,0 +1,109 @@
+a {
+    text-decoration: none;
+    color: white;
+
+}
+
+/* 4k */
+@media (max-width: 2560px) {
+    .mobile-nav-icons {
+        display: none;
+    }
+}
+  
+/* Laptop L */
+@media (max-width: 1440px) {
+    .mobile-nav-icons {
+        display: none;
+    }
+}
+  
+/* Laptop */
+@media (max-width: 1024px) {
+    .mobile-nav-icons {
+        display: none; 
+    }
+}
+  
+/* Tablet */
+@media (max-width: 768px) {
+    .mobile-nav-icons {
+        display: none;
+    }
+}
+  
+/* Mobile L */
+@media (max-width: 425px) {
+    .mobile-navbar {
+        display: flex;
+        justify-content: center;
+        
+        height: 4rem;
+        border-top: 2px solid grey;
+        background-color: black;
+     
+        
+        
+        position: fixed;
+        bottom: 0;
+        left: 0; /* Optional: Set left to 0 to position the element at the left edge */
+        right: 0;
+    }
+    .mobile-nav-icons {
+        display: flex;
+        height: 3.4rem;
+        width: 3.4rem;
+        padding-top: 0.2rem;
+        margin: 0 1rem;
+    }
+}
+  
+/* Mobile M */
+@media (max-width: 375px) {
+    .mobile-navbar {
+        display: flex;
+        justify-content: center;
+        height: 2.8rem;
+        border-top: 2px solid gray;
+        background-color: black;
+     
+        
+        
+        position: fixed;
+        bottom: 0;
+        left: 0; /* Optional: Set left to 0 to position the element at the left edge */
+        right: 0;
+    }
+    .mobile-nav-icons {
+        display: flex;
+        height: 2.4rem;
+        width: 2.4rem;
+        padding-top: 0.2rem;
+        margin: 0 0.8rem;
+    }
+}
+  
+/* Mobile S */
+@media (max-width: 320px) {
+    .mobile-navbar {
+        display: flex;
+        justify-content: center;
+        height: 2.8rem;
+        border-top: 2px solid gray;
+        background-color: black;
+     
+        
+        
+        position: fixed;
+        bottom: 0;
+        left: 0; /* Optional: Set left to 0 to position the element at the left edge */
+        right: 0;
+    }
+    .mobile-nav-icons {
+        display: flex;
+        height: 2.4rem;
+        width: 2.4rem;
+        padding-top: 0.2rem;
+        margin: 0 0.6rem;
+    }
+}

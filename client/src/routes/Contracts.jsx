@@ -1,9 +1,11 @@
 import '../styles/Contracts.css'
 import Header from '../components/Header'
+import MobileNavbar from '../components/MobileNavbar'
 import { useState } from 'react'
 import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers5/react'
 import { ethers } from "ethers"
 import { Simple } from '../abis/SimpleABIs.js'
+
 
 
 const Contracts = () => {
@@ -86,6 +88,7 @@ const Contracts = () => {
                 <button id="pay" onClick={pay}>Pay</button>
                 <button onClick={getBalance}>Balance</button>
             </div> 
+            <MobileNavbar />
         </> 
         
     )

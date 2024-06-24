@@ -1,4 +1,5 @@
 import Header from '../components/Header'
+import MobileNavbar from '../components/MobileNavbar'
 import { 
     useWeb3Modal, 
     useWalletInfo, 
@@ -36,6 +37,7 @@ const Hooks = () => {
                 <button onClick={() => console.log(address, chainId, isConnected)}>Info</button>
                 <button onClick={getBalance}>Balance</button>
             </div>
+            <MobileNavbar />
         </>   
     )
 }

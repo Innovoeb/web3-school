@@ -55,7 +55,7 @@ router.post("/vrf-mock/subscriptions", async (req, res) => {
     
     // TODO: validate inputted address == vrf mock coordinator address
     try {
-        // returns tx if successful
+        // returns tx and subId if successful
         response = await VRF_Mock.createSubscription(req.body.coordinatorAddress)
 
         if (response === undefined) {

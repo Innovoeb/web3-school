@@ -59,6 +59,38 @@ app.post("/deployments", async (req, res) => {
     }
 })
 
+app.delete("/local", async (req, res) => {
+    let loggedError, loggedOutput
+
+    try {
+        switch (req.body.arrayName) {
+            case "local-deployments":
+                await DB.deleteLocal("http://localhost:3001/local-deployments")
+                res.status(200).json({
+                    "message": "Local Deployments Deleted From DB!"
+                })
+                break
+            case "local-events":
+                await DB.deleteLocal("http://localhost:3001/local-events")
+                res.status(200).json({
+                    "message": "Local Events Deleted From DB!"
+                })
+                break
+            default:
+                res.status(400).json({
+                    "message": "Invalid Array Name!"
+                })
+        }
+    } catch (error) {
+        console.log(`Error: ${error}`)
+        loggedError = error
+
+        res.status(500).json({
+            "error": "Error w/ API Request!"
+        })
+    }
+})
+
 
 app.listen(port, async () => {
     console.log(`Server Initiated On Port ${port}`)

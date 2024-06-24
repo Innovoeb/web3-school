@@ -3,7 +3,7 @@ const { vars } = require("hardhat/config")
 const { DB } = require("../../data/db.js")
 const { Provider } = require("../utils/providers.js") 
 const { getABI } = require("../utils/artifacts.js")
-const { VRF_Mock } = require("./logic/vrfMock.js")
+const { getContractObj } = require("../utils/getContractObj.js")    
 
 
 
@@ -16,7 +16,7 @@ module.exports.EventListener = {
         SubscriptionCreated: async () => {
             try {
                 if (await DB.contractExists("VRFCoordinatorV2_5Mock", "local")) {
-                    const contract = await VRF_Mock.coordinator()
+                    const contract = await getContractObj("VRFCoordinatorV2_5Mock", "local")
                     // returns the block number (or height) of the most recently mined block
                     const startBlockNumber = await (Provider.local).getBlockNumber()
 
@@ -46,7 +46,7 @@ module.exports.EventListener = {
             try {
                 if (await DB.contractExists("VRFCoordinatorV2_5Mock", "local")) {
 
-                    const contract = await VRF_Mock.coordinator()
+                    const contract = await getContractObj("VRFCoordinatorV2_5Mock", "local")
                     // returns the block number (or height) of the most recently mined block
                     const startBlockNumber = await (Provider.local).getBlockNumber()
 
@@ -76,7 +76,7 @@ module.exports.EventListener = {
             try {
                 if (await DB.contractExists("VRFCoordinatorV2_5Mock", "local")) {
     
-                    const contract = await VRF_Mock.coordinator()
+                    const contract = await getContractObj("VRFCoordinatorV2_5Mock", "local")
                     // returns the block number (or height) of the most recently mined block
                     const startBlockNumber = await (Provider.local).getBlockNumber()
 

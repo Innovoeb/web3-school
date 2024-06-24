@@ -1,5 +1,6 @@
 import Home from './routes/Home'
 import Header from './components/Header'
+import MobileNavbar from './components/MobileNavbar'
 
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <>
       <Header />
       <Home />
+      <MobileNavbar />
     </>
   )
 }

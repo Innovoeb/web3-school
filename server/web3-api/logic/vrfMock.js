@@ -1,18 +1,12 @@
 const hre = require("hardhat")
 const { Wallet } = require("../../utils/wallets")
+const { Provider } = require("../../utils/providers")
 const { Artifacts } = require("../../utils/artifacts")
 const { DB } = require("../../../data/db")
+const { getContractObj } = require("../../utils/getContractObj")
 
 
 module.exports.VRF_Mock = {
-    // mock coordinator Contract obj
-    coordinator: async () => {
-        return new hre.ethers.Contract(
-            await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local"),
-            await Artifacts.getABI("VRFCoordinatorV2_5Mock"), 
-            Wallet.local
-        )
-    },
     deployCoordinator: async (contractName, params) => {
         let contractFactory, response
 
@@ -33,7 +27,7 @@ module.exports.VRF_Mock = {
     },
     createSubscription: async () => {
         try {
-            return (await (await this.VRF_Mock.coordinator()).createSubscription()).hash
+            return (await (await getContractObj("VRFCoordinatorV2_5Mock", "local")).createSubscription()).hash
         } catch (error) {
             console.error(error)
         }
@@ -41,14 +35,14 @@ module.exports.VRF_Mock = {
     // returns array of subscription ids
     getActiveSubscriptionIds: async () => {
         try {
-            return await (await this.VRF_Mock.coordinator()).getActiveSubscriptionIds(0, 50)
+            return await (await getContractObj("VRFCoordinatorV2_5Mock", "local")).getActiveSubscriptionIds(0, 50)
         } catch (error) {
             console.error(error)
         }
     },
     fundSubscription: async (subId, linkAmount) => {
         try {
-            return (await (await this.VRF_Mock.coordinator()).fundSubscription(subId, linkAmount)).hash
+            return (await (await getContractObj("VRFCoordinatorV2_5Mock", "local")).fundSubscription(subId, linkAmount)).hash
         } catch (error) {
             console.error(error)
         }
@@ -56,7 +50,7 @@ module.exports.VRF_Mock = {
     getSubscription: async (subId) => {
         try {
             // should return an obj
-            let response = await (await this.VRF_Mock.coordinator()).getSubscription(subId)
+            let response = await (await getContractObj("VRFCoordinatorV2_5Mock", "local")).getSubscription(subId)
             return {
                 "balance": `${hre.ethers.formatEther(response.balance)} LINK`,
                 "nativeBalance": `${hre.ethers.formatEther(response.nativeBalance)} HardhatETH`,
@@ -70,7 +64,7 @@ module.exports.VRF_Mock = {
     },
     addConsumer: async (subId, consumerAddress) => {
         try {
-            return (await (await this.VRF_Mock.coordinator()).addConsumer(subId, consumerAddress)).hash
+            return (await (await getContractObj("VRFCoordinatorV2_5Mock", "local")).addConsumer(subId, consumerAddress)).hash
         } catch (error) {
             console.error(error)
         }
