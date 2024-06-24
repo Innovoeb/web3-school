@@ -7,6 +7,14 @@
       "contractAddress": "https://sepolia.etherscan.io/address/0xce98e1B70297A6001C1c6C7628cb9b3EC6Dd842e",
       "tx": "https://sepolia.etherscan.io/tx/0x546f348efc2c1661b5a634e59bb9950b95875f32f3d2475c6bd4d494161c85a8",
       "time": "2024-06-24T15:40:16.427Z"
+    },
+    {
+      "id": "9870",
+      "contractName": "DataTypes",
+      "network": "polygon_amoy",
+      "contractAddress": "https://amoy.polygonscan.com/address/0x463D1C2755d38728DAeDc8f2061101768b23b8F9",
+      "tx": "https://amoy.polygonscan.com/tx/0x8b3a64e3c1cace99781d645db86596409b2c0bb6bbf94d65bdcfeb8f2d0f3010",
+      "time": "2024-06-24T15:48:52.396Z"
     }
   ],
   "testnet-events": [],
