@@ -1,5 +1,14 @@
 {
-  "testnet-deployments": [],
+  "testnet-deployments": [
+    {
+      "id": "7e97",
+      "contractName": "DataTypes",
+      "network": "sepolia",
+      "contractAddress": "https://sepolia.etherscan.io/address/0xce98e1B70297A6001C1c6C7628cb9b3EC6Dd842e",
+      "tx": "https://sepolia.etherscan.io/tx/0x546f348efc2c1661b5a634e59bb9950b95875f32f3d2475c6bd4d494161c85a8",
+      "time": "2024-06-24T15:40:16.427Z"
+    }
+  ],
   "testnet-events": [],
   "local-deployments": [
     {
@@ -15,6 +24,13 @@
       "contractAddress": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
       "tx": "0xf535be29a3c01c724600bc0d1edf8f5e73ced1a10667fa2dd7fb5e434b4df0d3",
       "time": "2024-06-24T15:13:26.414Z"
+    },
+    {
+      "id": "b961",
+      "contractName": "Events",
+      "contractAddress": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      "tx": "0x83e03b7478bb9e50f176b34740233feeb941487d3ff72b4aec85398ffed72198",
+      "time": "2024-06-24T15:39:27.161Z"
     }
   ],
   "local-events": [
@@ -36,6 +52,16 @@
       "oldBalance": "0.0 LINK",
       "newBalance": "100.0 LINK",
       "time": "2024-06-24T15:14:10.779Z"
+    },
+    {
+      "id": "31d2",
+      "contractName": "VRFCoordinatorV2_5Mock",
+      "eventName": "SubscriptionFunded",
+      "contractAddress": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "subscriptionID": "49297574729665075240460375539468585171996225470085070098279463096635552123446",
+      "oldBalance": "0.0 LINK",
+      "newBalance": "100.0 LINK",
+      "time": "2024-06-24T15:38:58.951Z"
     }
   ]
 }

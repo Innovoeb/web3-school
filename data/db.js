@@ -13,7 +13,7 @@ module.exports.DB = {
     }
   },
   contractExists: async (contractName, network) => {
-    let exsists = false
+    let exsists
 
     try {
       if (network == "local") {
@@ -29,7 +29,7 @@ module.exports.DB = {
         const response = await fetch("http://localhost:3001/testnet-deployments")
         const data = await response.json()
         for (let i = 0; i < data.length; i++) {
-          if (data[i].contractName == contractName) {
+          if (data[i].contractName == contractName && data[i].network == network) {
             exsists = true
             return exsists
           }
