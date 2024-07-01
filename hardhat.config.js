@@ -25,7 +25,16 @@ module.exports = {
         settings: {
           optimizer: {
             enabled: true,
-            runs: 200
+            runs: 1000
+          }
+        }
+      },
+      {
+        version: "0.8.23",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 100,
           }
         }
       },
@@ -39,7 +48,11 @@ module.exports = {
   },
   networks: {
     hardhat: {
-      chainId: 31337 // We set 1337 to make interacting with MetaMask simpler
+      chainId: 31337,
+      gas: 6000000,
+      allowUnlimitedContractSize: true
+      //blockGasLimit: 0x1fffffffffffff,
+      //timeout: 1800000
     },
     mumbai: {
       url: `https://polygon-mumbai.infura.io/v3/${INFURA_API_KEY}`,

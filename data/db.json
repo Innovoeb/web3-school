@@ -20,25 +20,11 @@
   "testnet-events": [],
   "local-deployments": [
     {
-      "id": "4711",
-      "contractName": "DataTypes",
-      "contractAddress": "0x0B306BF915C4d645ff596e518fAf3F9669b97016",
-      "tx": "0x0db2205de7a3ca10f6660301c4ae883aae05a1312ca19612d5a76645a7733fc4",
-      "time": "2024-07-01T16:33:21.299Z"
-    },
-    {
-      "id": "366c",
-      "contractName": "Events",
-      "contractAddress": "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1",
-      "tx": "0x0fed651f57e473e2b3552af09498105699d360c310726aba2b5ffca2c879ad7c",
-      "time": "2024-07-01T16:33:58.312Z"
-    },
-    {
-      "id": "10cd",
-      "contractName": "VRFCoordinatorV2_5Mock",
-      "contractAddress": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
-      "tx": "0xeb3d08b7b07d1781eb6de0cb5562db94f69c7ac1852efa12eb9993404a926620",
-      "time": "2024-07-01T16:34:13.977Z"
+      "id": "99b8",
+      "contractName": "EntryPoint",
+      "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "tx": "0x50632a8a4d32aa6a99bb8e30b84bc5bede023a00eae00c6a1a29b9c7e8b2f7c6",
+      "time": "2024-07-01T18:01:05.073Z"
     }
   ],
   "local-events": []
