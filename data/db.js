@@ -13,29 +13,34 @@ module.exports.DB = {
     }
   },
   contractExists: async (contractName, network) => {
-    let exsists
-
+    let exists = false
+  
     try {
-      if (network == "local") {
-        const response = await fetch("http://localhost:3001/local-deployments")
-        const data = await response.json()
-        for (let i = 0; i < data.length; i++) {
-          if (data[i].contractName == contractName) {
-            exsists = true
-            return exsists
-          }
-        }
-      } else {
-        const response = await fetch("http://localhost:3001/testnet-deployments")
-        const data = await response.json()
-        for (let i = 0; i < data.length; i++) {
-          if (data[i].contractName == contractName && data[i].network == network) {
-            exsists = true
-            return exsists
-          }
+      const response = await fetch("http://localhost:3001/testnet-deployments")
+      const data = await response.json()
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].contractName == contractName && data[i].network == network) {
+          exists = true
+          return exists
         }
       }
-      return exsists
+      return exists
+    } catch (error) {
+      console.log(error)
+    }
+  },
+  contractExistsLocally: async (contractName) => {
+    let exists = false
+    try {
+      const response = await fetch("http://localhost:3001/local-deployments")
+      const data = await response.json()
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].contractName == contractName) {
+          exists = true
+          return exists
+        }
+      }
+      return exists
     } catch (error) {
       console.log(error)
     }

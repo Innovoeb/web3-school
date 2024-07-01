@@ -15,9 +15,9 @@ app.post("/deployments", async (req, res) => {
     let loggedError, loggedOutput, response
     
     try {
-        if (await DB.contractExists(req.body.contractName, req.body.network) ) {
+        if (await DB.contractExistsLocally(req.body.contractName, req.body.network) ) {
             res.status(400).json({
-                "message": `Contract Already Exists on ${req.body.network} Network!`
+                "message": `Contract Already Exists on Hardhat Network!`
             })
         } else {
             response = await deployContract(req.body.contractName, req.body.network, req.body.params)

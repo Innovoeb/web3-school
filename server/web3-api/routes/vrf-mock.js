@@ -16,9 +16,9 @@ router.post("/vrf-mock/deployments", async (req, res) => {
 
     // check for vrf mock coordinator deployment
     try {
-        if (await DB.contractExists(req.body.contractName, req.body.network) ) {
+        if (await DB.contractExistsLocally(req.body.contractName)) {
             res.status(400).json({
-                "message": `Contract Already Exists on ${req.body.network} Network!`
+                "message": `Contract Already Exists on Hardhat Network!`
             })
         } else {
             response = await VRF_Mock.deployCoordinator(req.body.contractName, req.body.params)

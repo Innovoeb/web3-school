@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently  \"cd client && npm run dev\" \"cd server && npx json-server --watch ./data/db.json --port 3001\" \"cd server && node index.js \" --names React,JSON-Server,Node --prefix-colors red,#FFA500,yellow",
-    "dev": "concurrently \"npx json-server --watch ./server/data/db.json --port 3001\" \"node server/web3-api/index.js \" --names JSON-Server,Node --prefix-colors red,#FFA500"
+    "dev": "concurrently \"npx json-server --watch ./data/db.json --port 3001\" \"node server/web3-api/app.js \" --names JSON-Server,Node --prefix-colors red,#FFA500"
   },
   "keywords": [],
   "author": "Innovoeb",
   "license": "ISC",
   "dependencies": {
+    "@account-abstraction/contracts": "^0.7.0",
     "@chainlink/contracts": "^1.1.1",
+    "@openzeppelin/contracts": "^5.0.2",
     "concurrently": "^8.2.2",
     "cors": "^2.8.5",
     "express": "^4.19.2",
