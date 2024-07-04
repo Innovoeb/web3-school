@@ -8,8 +8,6 @@ const INFURA_API_KEY = vars.get("INFURA_API_KEY")
 const DEV_WALLET = vars.get("DEV_WALLET")
 
 
-
-
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: {
@@ -32,9 +30,10 @@ module.exports = {
       {
         version: "0.8.23",
         settings: {
+          evmVersion: "london",
           optimizer: {
             enabled: true,
-            runs: 100,
+            runs: 1000,
           }
         }
       },
@@ -44,13 +43,25 @@ module.exports = {
       {
         version: "0.8.25"
       },
-    ]
+    ],
+    overrides: {
+      "contracts/smart-accounts/Account.sol": {
+        version: "0.8.23",
+        settings: {
+          evmVersion: "london",
+          optimizer: {
+            enabled: true,
+            runs: 1000
+          }
+         }
+      }
+    }
   },
   networks: {
     hardhat: {
       chainId: 31337,
-      gas: 6000000,
-      allowUnlimitedContractSize: true
+      gas: 12000000,
+      allowUnlimitedContractSize: true,
       //blockGasLimit: 0x1fffffffffffff,
       //timeout: 1800000
     },

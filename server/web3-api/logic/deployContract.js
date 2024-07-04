@@ -1,8 +1,8 @@
 const hre = require("hardhat")
 const { Wallet } = require("../../utils/wallets")
 const { DB } = require("../../../data/db")
-const { Artifacts } = require("../../utils/artifacts")
-const { getContractFactory } = require("../../utils/getContractFactory")
+
+
 
 
 module.exports.deployContract = async (contractName, network, params) => {
@@ -11,7 +11,7 @@ module.exports.deployContract = async (contractName, network, params) => {
     switch (network) {
         case "local":
             response = await handleParamLength(
-                await getContractFactory(contractName, network),
+                await hre.ethers.getContractFactory(contractName, Wallet.local),
                 params
             )
             DB.post("http://localhost:3001/local-deployments", {
@@ -23,7 +23,7 @@ module.exports.deployContract = async (contractName, network, params) => {
             return response
         case "sepolia":
             response = await handleParamLength(
-                await getContractFactory(contractName, network),
+                await hre.ethers.getContractFactory(contractName, Wallet.local),
                 params
             )
             DB.post("http://localhost:3001/testnet-deployments", {
@@ -36,7 +36,7 @@ module.exports.deployContract = async (contractName, network, params) => {
             return response
         case "polygon_amoy":
             response = await handleParamLength(
-                await getContractFactory(contractName, network),
+                await hre.ethers.getContractFactory(contractName, Wallet.local),
                 params
             )
             DB.post("http://localhost:3001/testnet-deployments", {
@@ -49,7 +49,7 @@ module.exports.deployContract = async (contractName, network, params) => {
             return response
         case "arbitrum_sepolia":
             response = await handleParamLength(
-                await getContractFactory(contractName, network),
+                await hre.ethers.getContractFactory(contractName, Wallet.local),
                 params
             )
             DB.post("http://localhost:3001/testnet-deployments", {

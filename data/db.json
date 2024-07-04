@@ -20,11 +20,25 @@
   "testnet-events": [],
   "local-deployments": [
     {
-      "id": "99b8",
-      "contractName": "EntryPoint",
+      "id": "30dc",
+      "contractName": "DataTypes",
       "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-      "tx": "0x50632a8a4d32aa6a99bb8e30b84bc5bede023a00eae00c6a1a29b9c7e8b2f7c6",
-      "time": "2024-07-01T18:01:05.073Z"
+      "tx": "0xe7f085abbfe9a859dcbea3ed5d89dbc2d7ccbb0d51c3ff203618b9719983dffd",
+      "time": "2024-07-04T18:29:59.806Z"
+    },
+    {
+      "id": "899f",
+      "contractName": "Events",
+      "contractAddress": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      "tx": "0x177a716db973cedb9fb182c5eed4c4b397a4eb42d8d12321f2a4b041700acd8f",
+      "time": "2024-07-04T18:31:56.425Z"
+    },
+    {
+      "id": "ac0c",
+      "contractName": "Functions",
+      "contractAddress": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "tx": "0xfbbc6315bc727db714097269735245250694a1b12f61a12444157ea0c8e4e5f0",
+      "time": "2024-07-04T18:32:24.613Z"
     }
   ],
   "local-events": []
