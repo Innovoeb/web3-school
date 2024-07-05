@@ -1,9 +1,12 @@
 const hre = require("hardhat")
 const { Wallet } = require("../../utils/wallets")
-const { Provider } = require("../../utils/providers")
 const { Artifacts } = require("../../utils/artifacts")
 const { DB } = require("../../../data/db")
 const { getContractObj } = require("../../utils/getContractObj")
+
+const wallet = Wallet.local
+
+
 
 
 module.exports.VRF_Mock = {
@@ -27,7 +30,14 @@ module.exports.VRF_Mock = {
     },
     createSubscription: async () => {
         try {
-            return (await (await getContractObj("VRFCoordinatorV2_5Mock", "local")).createSubscription()).hash
+            let contract = await hre.ethers.getContractAt(
+                "VRFCoordinatorV2_5Mock", 
+                await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local"), 
+                Wallet.local
+            )
+            return (
+                await contract.createSubscription()
+            ).hash
         } catch (error) {
             console.error(error)
         }
@@ -63,8 +73,13 @@ module.exports.VRF_Mock = {
         }
     },
     addConsumer: async (subId, consumerAddress) => {
+        const contract = await hre.ethers.getContractAt(
+            "VRFCoordinatorV2_5Mock", 
+            await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local"), 
+            Wallet.local
+        )
         try {
-            return (await (await getContractObj("VRFCoordinatorV2_5Mock", "local")).addConsumer(subId, consumerAddress)).hash
+            return (await contract.addConsumer(subId, consumerAddress)).hash
         } catch (error) {
             console.error(error)
         }

@@ -1,22 +1,25 @@
 const hre = require("hardhat")
 const { vars } = require("hardhat/config")
 const { DB } = require("../../data/db.js")
-const { Provider } = require("../utils/providers.js") 
-const { getABI } = require("../utils/artifacts.js")
-const { getContractObj } = require("../utils/getContractObj.js")    
+const { Provider } = require("../utils/providers.js")
 
 
 
 
+const provider = Provider.local
+   
 //const sepoliaContractAddress = "0x08810ED231bca4241fd757291F7Ecf2f02C0c8bF"
-
 
 module.exports.EventListener = {
     VRF_Mock: {
         SubscriptionCreated: async () => {
             try {
-                if (await DB.contractExists("VRFCoordinatorV2_5Mock", "local")) {
-                    const contract = await getContractObj("VRFCoordinatorV2_5Mock", "local")
+                if (await DB.contractExistsLocally("VRFCoordinatorV2_5Mock")) {
+                    const contract = await hre.ethers.getContractAt(
+                        "VRFCoordinatorV2_5Mock", 
+                        await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local"),
+                        Provider.local
+                    )
                     // returns the block number (or height) of the most recently mined block
                     const startBlockNumber = await (Provider.local).getBlockNumber()
 
@@ -44,9 +47,12 @@ module.exports.EventListener = {
         },
         SubscriptionFunded: async () => {
             try {
-                if (await DB.contractExists("VRFCoordinatorV2_5Mock", "local")) {
-
-                    const contract = await getContractObj("VRFCoordinatorV2_5Mock", "local")
+                if (await DB.contractExistsLocally("VRFCoordinatorV2_5Mock")) {
+                    const contract = await hre.ethers.getContractAt(
+                        "VRFCoordinatorV2_5Mock", 
+                        await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local"),
+                        Provider.local
+                    )
                     // returns the block number (or height) of the most recently mined block
                     const startBlockNumber = await (Provider.local).getBlockNumber()
 
@@ -56,13 +62,13 @@ module.exports.EventListener = {
                             return
                         } else {
                             // POST to db.json here!
-                            DB.post("http://localhost:3001/local-events", {
+                            await DB.post("http://localhost:3001/local-events", {
                                 contractName: "VRFCoordinatorV2_5Mock",
                                 eventName: "SubscriptionFunded",
                                 contractAddress: await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local"),
                                 subscriptionID: BigInt(subId).toString(),
-                                oldBalance: `${await hre.ethers.formatEther(oldBalance)} LINK`,
-                                newBalance: `${await hre.ethers.formatEther(newBalance)} LINK`,
+                                oldBalance: `${hre.ethers.formatEther(oldBalance)} LINK`,
+                                newBalance: `${hre.ethers.formatEther(newBalance)} LINK`,
                                 time: new Date().toISOString()
                             })
                         }
@@ -72,21 +78,26 @@ module.exports.EventListener = {
                 console.log(error)
             }
         },
+        // TODO: figure out why DB is adding two posts when consumer added
         SubscriptionConsumerAdded: async () => {
             try {
-                if (await DB.contractExists("VRFCoordinatorV2_5Mock", "local")) {
-    
-                    const contract = await getContractObj("VRFCoordinatorV2_5Mock", "local")
+                if (await DB.contractExistsLocally("VRFCoordinatorV2_5Mock")) {
+                    const contract = await hre.ethers.getContractAt(
+                        "VRFCoordinatorV2_5Mock", 
+                        await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local"),
+                        Provider.local
+                    )
                     // returns the block number (or height) of the most recently mined block
                     const startBlockNumber = await (Provider.local).getBlockNumber()
 
-                    contract.on("SubscriptionConsumerAdded", async (subId, consumer, blockNumber) => {
+                    // TODO: figure out why this fires twice
+                    contract.on("SubscriptionConsumerAdded", async (subId, consumer, eventPayload) => {
                         // only listen for new events
-                        if (blockNumber <= startBlockNumber) {
+                        if (startBlockNumber == 1) {
                             return
                         } else {
                             // POST to db.json here!
-                            await DB.postLocal("http://localhost:3001/local", {
+                            await DB.post("http://localhost:3001/local-events", {
                                 contractName: "VRFCoordinatorV2_5Mock",
                                 eventName: "SubscriptionConsumerAdded",
                                 contractAddress: await DB.getContractAddress("VRFCoordinatorV2_5Mock", "local"),
@@ -104,12 +115,15 @@ module.exports.EventListener = {
     },
     Events: async () => {
         try {
-            if (await DB.contractExists("Events", "local")) {
-                let address, abi, provider
-                address = await DB.getContractAddress("Events", "local")
-                abi = await getABI("Events")
-                provider = Provider.local
-                const contract = new hre.ethers.Contract(address, abi, provider)
+            if (await DB.contractExistsLocally("Events")) {
+                let address = await DB.getContractAddress("Events", "local")
+                
+                // TODO: add a check for network
+                const contract = await hre.ethers.getContractAt(
+                    "Events", 
+                    address, 
+                    provider
+                )
                 // returns the block number (or height) of the most recently mined block
                 const startBlockNumber = await provider.getBlockNumber()
 
@@ -118,18 +132,15 @@ module.exports.EventListener = {
                     if (blockNumber <= startBlockNumber) {
                         return
                     } else {
-                        let Deposit = {
-                            type: "event",
-                            contractName: "Events",
-                            contractAddress: `${await address}`,
-                            network: "local",
-                            user: user,
-                            depositAmount: `${await hre.ethers.utils.formatEther(depositAmount)} ETH`,
-                            newBalance: `${await hre.ethers.utils.formatEther(newBalance)} ETH`,
-                            time: new Date().toISOString()
-                        }
                         // POST to db.json here!
-                        DB.postLocal("http://localhost:3001/local", Deposit)
+                        DB.post("http://localhost:3001/local-events", {
+                            contractName: "Events",
+                            contractAddress: address,
+                            user: user,
+                            depositAmount: `${hre.ethers.formatEther(depositAmount)} ETH`,
+                            newBalance: `${hre.ethers.formatEther(newBalance)} ETH`,
+                            time: new Date().toISOString()
+                        })
                     }
                 })
             }

@@ -3,7 +3,9 @@ const port = 3000
 const app = express()
 const { deployContract } = require("./logic/deployContract")
 const { DB } = require("../../data/db")
-const { EventListener } = require("./eventListener")
+
+
+
 
 
 app.use(express.json())
@@ -95,10 +97,8 @@ app.delete("/local", async (req, res) => {
 app.listen(port, async () => {
     console.log(`Server Initiated On Port ${port}`)
     console.log(`Worker PID: ${process.pid}`)
+
     
-    // // BUILDING ONLY! uncomment only after vrf mock coordinator has been deployed
-    // EventListener.VRF_Mock.SubscriptionCreated()
-    // EventListener.VRF_Mock.SubscriptionFunded()
-    // EventListener.VRF_Mock.SubscriptionConsumerAdded()
+    
 })
 
