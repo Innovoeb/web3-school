@@ -117,6 +117,15 @@ const myContract = await ethers.getContractFactory('MyContract')
 const deployedContract = await myContract.deploy({ value: initialBalance })
 ```
 
+### Contract Events Callback Params
+
+```
+targetContract.on("targetMethod", (...parameters) => {
+  console.log(parameters);
+})
+```
+- returns everything from blockNumber, transactionHash that triggered the event, and the event object itself
+
 
 
 
