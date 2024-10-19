@@ -109,6 +109,15 @@ const response = await contract.deployTransaction.wait()
 - https://docs.ethers.org/v5/troubleshooting/errors/#help-NUMERIC_FAULT-overflow
 
 
+### Deploy a Smart Contract w/ a Balance
+
+```
+const initialBalance = ethers.utils.parseEther("0.1")
+const myContract = await ethers.getContractFactory('MyContract')
+const deployedContract = await myContract.deploy({ value: initialBalance })
+```
+
+
 
 
 
